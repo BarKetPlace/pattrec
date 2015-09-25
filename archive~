@@ -1,3 +1,0 @@
-#!/bin/bash
-now=$(date +%m-%d@%Hh%M)
-tar -cvf ../projet_$now.tar *
