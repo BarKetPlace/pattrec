@@ -10,10 +10,12 @@ h(1)=HMM(mc,pD);
 
 %source model 2
 mc=MarkovChain([1 0],[0.95 0.05 0;0 0.8 0.2]);
-pD(1)=DiscreteD([0.2 0.6 0.2]);%state 1
-pD(2)=DiscreteD([0.4 0.2 0.4]);%state 2
+%pD(1)=DiscreteD([0.2 0.6 0.2]);%state 1
+pD2(1)=GaussD;
+pD2(2)=GaussD;
+%pD(2)=DiscreteD([0.4 0.2 0.4]);%state 2
 %h(2)=HMM('MarkovChain',mc,'OutputDistr',pD);
-h(2)=HMM(mc,pD);
+h(2)=HMM(mc,pD2);
 
 %test models:
 for r=1:5
