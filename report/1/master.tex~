@@ -2,7 +2,7 @@
 
 \usepackage[utf8]{inputenc} %Accent
 %\usepackage{libertine} %Font
-%\usepackage[english, francais]{babel} %langue
+\usepackage[english, francais]{babel} %langue
 
 \usepackage{graphicx} %Include fig
 \usepackage{subfig} %Include subfig
@@ -19,11 +19,11 @@
 \usepackage[hidelinks]{hyperref} %Liens intradoc et url
 %\usepackage{algorithm}
 %\usepackage{algorithmic} %Algo en pseudo code
-\usepackage{algorithm2e} %for psuedo code
+%\usepackage{algorithm2e} %for psuedo code
 
-\usepackage{boxedminipage} %Surligner
+%\usepackage{boxedminipage} %Surligner
 
-\newcounter{apppage} % Annexes
+%\newcounter{apppage} % Annexes
 
 %Dossier contenant les figures
 \graphicspath{{figures/}}
@@ -41,7 +41,7 @@
 \oddsidemargin -.5 cm
 
 %Titre
-\title{\textbf{Estimation de processus de diffusion multiple pour la caractérisation de milieux aléatoires\\} Stage 2ème année d'école d'ingénieur\\ Grenoble-INP  PHELMA \\ }
+\title{Pattern recognition project\\Report\\Assignment n°1}
 \author{Audrey Brouard \and Antoine Honoré}
 
 
@@ -73,7 +73,6 @@
 \begin{itemize}\item[\hspace{12pt}]}{\end{itemize}
 }
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -85,13 +84,14 @@
 %\fancyhead[R]{}
 % Pied de page
 \newcommand{\width}{3cm}
-\fancyfoot[L]{ \includegraphics[width=\width]{logo-gipsa} }
+%\fancyfoot[L]{ \includegraphics[width=\width]{logo-gipsa} }
 \fancyfoot[C]{ \thepage~/~\pageref{doclastpage} }
-\fancyfoot[R]{ \includegraphics[width=\width]{logo-phelma} }
+%\fancyfoot[R]{ \includegraphics[width=\width]{logo-phelma} }
+
+
 
 \begin{document}
-%\input{title.tex}
-
-%\input{annexe.tex}
+\maketitle
+\section{}
 
 \end{document}

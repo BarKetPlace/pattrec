@@ -1,9 +1,12 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.9.24)  24 SEP 2015 10:02
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.9.24)  25 SEP 2015 10:18
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**\input master.tex
-(./master.tex (/usr/share/texlive/texmf-dist/tex/latex/base/report.cls
+**master.tex
+(./master.tex
+LaTeX2e <2011/06/27>
+Babel <3.9h> and hyphenation patterns for 4 languages loaded.
+(/usr/share/texlive/texmf-dist/tex/latex/base/report.cls
 Document Class: report 2007/10/19 v1.4h Standard LaTeX document class
 (/usr/share/texlive/texmf-dist/tex/latex/base/size10.clo
 File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
@@ -861,18 +864,25 @@ LaTeX Info: Redefining \nameref on input line 93.
 \@outlinefile=\write4
 \openout4 = `master.out'.
 
-LaTeX Font Info:    Try loading font information for U+msa on input line 95.
+LaTeX Font Info:    Try loading font information for U+msa on input line 96.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 95.
+LaTeX Font Info:    Try loading font information for U+msb on input line 96.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [1
+)
+<figures/kth-logo.jpg, id=8, 285.7074pt x 285.7074pt>
+File: figures/kth-logo.jpg Graphic file (type jpg)
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] 
+<use figures/kth-logo.jpg>
+Package pdftex.def Info: figures/kth-logo.jpg used on input line 96.
+(pdftex.def)             Requested size: 142.85333pt x 142.85333pt.
+ [1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./figures/kth-logo.jpg>] 
 AED: lastpage setting LastPage
 
 Package Fancyhdr Warning: \headheight is too small (0.0pt): 
@@ -881,54 +891,46 @@ Package Fancyhdr Warning: \headheight is too small (0.0pt):
  This may cause the page layout to be inconsistent, however.
 
 
-LaTeX Warning: Reference `doclastpage' on page 1 undefined on input line 97.
+LaTeX Warning: Reference `doclastpage' on page 1 undefined on input line 100.
 
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.97 \end{document}
-                    [1]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 97.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 97.
+l.100 \end{document}
+                     [1]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 100.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 100.
  (./master.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 97.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 97.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 100.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 100.
+Package rerunfilecheck Info: File `master.out' has not changed.
+(rerunfilecheck)             Checksum: 27AE970D29BBB247F3C68BD34D452B5C;37.
 
-
-Package rerunfilecheck Warning: File `master.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `master.out':
-(rerunfilecheck)             Before: F86484871CCEFBADC66A9DA6180A27F9;42
-(rerunfilecheck)             After:  27AE970D29BBB247F3C68BD34D452B5C;37.
 
 LaTeX Warning: There were undefined references.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 97.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 100.
  ) 
 Here is how much of TeX's memory you used:
- 9148 strings out of 494999
- 133931 string characters out of 6180228
- 224904 words of memory out of 5000000
- 12230 multiletter control sequences out of 15000+600000
- 10190 words of font info for 38 fonts, out of 8000000 for 9000
+ 9157 strings out of 494999
+ 134059 string characters out of 6180228
+ 225015 words of memory out of 5000000
+ 12235 multiletter control sequences out of 15000+600000
+ 10525 words of font info for 39 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 44i,12n,43p,260b,404s stack positions out of 5000i,500n,10000p,200000b,80000s
-pdfTeX warning (dest): name{subsection.0.0.1} has been referenced but does no
-t exist, replaced by a fixed one
-
- </home/antoine/.texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1728.600pk></usr/sha
-re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/tex
-live/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/font
-s/type1/public/amsfonts/cm/cmr17.pfb>
-Output written on master.pdf (2 pages, 52860 bytes).
+ 44i,12n,43p,253b,424s stack positions out of 5000i,500n,10000p,200000b,80000s
+ </home/antoine/.texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1000.600pk> </home
+/antoine/.texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1728.600pk></usr/share/texl
+ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/font
+s/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmr17.pfb>
+Output written on master.pdf (2 pages, 635740 bytes).
 PDF statistics:
- 47 PDF objects out of 1000 (max. 8388607)
- 36 compressed objects within 1 object stream
- 4 named destinations out of 1000 (max. 500000)
- 9 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 52 PDF objects out of 1000 (max. 8388607)
+ 39 compressed objects within 1 object stream
+ 3 named destinations out of 1000 (max. 500000)
+ 14 words of extra memory for PDF output out of 10000 (max. 10000000)
 
