@@ -27,12 +27,19 @@ f2 = nb2/T;
 %% Test HMM
 nSamples = 1000;
 
-pDgen(1)=GaussD('Mean',[0 0],'StDev',[1 1]);
-pDgen(2)=GaussD('Mean',[+1 0],'StDev',[3 1]);
+pDgen(1)=GaussD('Mean',[0],'StDev',[1]);
+pDgen(2)=GaussD('Mean',[3],'StDev',[2]);
 
 h = HMM(mc, pDgen);
 
 [X,S] = h.rand(nSamples);
+figure,
+for i = 1:100
+    [x p] = ksdensity(X(i,:));
+    plot3(p, i*ones(100), x )
+    xlabel('x values'); ylabel('y::Sample number'); zlabel('z::probability density');
+    hold on
+end
 %% testErgodicHMM
 
 

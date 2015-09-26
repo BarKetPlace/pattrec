@@ -3,8 +3,8 @@
 clear all
 %source model 1
 mc=MarkovChain([1 0],[0.9 0.1 0;0 0.9 0.1]);
-pD(1)=DiscreteD([0.5 0.45 0.05]);%state 1
-pD(2)=DiscreteD([0.6 0.35 0.05]);%state 2
+pD(1)=DiscreteD([0.1 0.2 0.6]);%state 1
+pD(2)=DiscreteD([0.6 0.3 0.1]);%state 2
 %h(1)=HMM('MarkovChain',mc,'OutputDistr',pD);
 h(1)=HMM(mc,pD);
 
@@ -27,7 +27,8 @@ for r=1:5
     %test1=logprob(h,zTest1)
     %test2=logprob(h,zTest2)
 end;
+
 mx1 = mean(x1,2);
-mx2 = mean(x2,2);
-t1 = size(zTest1,2); t2 = size(zTest2,2);
-figure(1), plot(1:t1, mx1);
+mx = mean(x2,2);
+% t1 = size(zTest1,2); t2 = size(zTest2,2);
+% figure(1), plot(1:t1, mx1);
