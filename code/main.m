@@ -6,6 +6,7 @@
 
 clear all
 clc
+clf
 
 % Test DiscreteD rand
 A = DiscreteD([0.1,0.8,0.1]);
@@ -15,28 +16,45 @@ x = rand(1,4);
 %% Test MarkovChain rand
 
 T = 1000;
-t0 = [0.75; 0.25];
-trans = [0.99 0.01; 0.03 0.97];
-mc = MarkovChain(t0,trans);
-S = mc.rand(T);
+q = [0.75; 0.25];
+A = [0.99 0.01; 0.03 0.97];
+mc = MarkovChain(q,A);
+% S = mc.rand(T);
 
-nb1 = sum( S == 1 );
-nb2 = sum( S == 2 );
-f1 = nb1/T;
-f2 = nb2/T;
-%% Test HMM
-nSamples = 1000;
+% nb1 = sum( S == 1 );
+% nb2 = sum( S == 2 );
+% f1 = nb1/T;
+% f2 = nb2/T;
+%% Test HMM rand
+clear all
+nSamples = 10000;
+q = [0.75; 0.25];
+A = [0.99 0.01; 0.03 0.97];
+mc = MarkovChain(q,A);
 
 pDgen(1)=GaussD('Mean',[0],'StDev',[1]);
 pDgen(2)=GaussD('Mean',[3],'StDev',[2]);
 
 h = HMM(mc, pDgen);
-
-[X,S] = h.rand(nSamples);
+nAtt = 20;
+Att = 1:nAtt;
+for i = Att
+    [X,S] = h.rand(nSamples);
+    v(i) =  var(X);
+    m(i) = mean(X);
+    i
+end
+figure(1), plot(Att,v); xlabel('Attempt number'); ylabel('Variance of the sample'); title('Estimated variance of several samples'); hold on
+            plot(Att, mean(v)*ones(nAtt), '-r');
+            
+figure(2), plot(Att,m); xlabel('Attempt number'); ylabel('Mean of the sample'); title('Estimated mean of several samples'); hold on
+            plot(Att, mean(m)*ones(nAtt), '-r');
+%% Plots
+OutputSize = size(X,2);
 figure,
-for i = 1:100
-    [x p] = ksdensity(X(i,:));
-    plot3(p, i*ones(100), x )
+for i = 1:20
+%     [x p] = ksdensity(X(i,:));
+    plot3( 1:OutputSize, i*ones(OutputSize), X(i,:))
     xlabel('x values'); ylabel('y::Sample number'); zlabel('z::probability density');
     hold on
 end
