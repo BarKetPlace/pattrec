@@ -166,12 +166,33 @@ As we can see on the figures \ref{hmmrand:var} and \ref{hmmrand:mean} the experi
     \caption{Validation of @HMM/rand\\\color{blue}{Blue : Plot of the 20 attempts}\\\color{red}{Red : Mean over the 20 attempts}}
 \end{figure}
 \pagebreak
-\section{HMM behavior}
-For this part, we changed the behavior of the @HMM/rand function, in order to get a vector from $b_{1}$ (not a scalar like the previous question). So here, each sample is a vector $x_{t} \sim N(\mu_j,\sigma_j^2)$ (where j=1 or 2).
+\section{HMM behavior 1/2}
+For this part, we changed the behavior of the @HMM/rand function, in order to get a vector from $b_{1}$ (not a scalar like the previous question). So here, each sample is a vector $x_{t} \sim N(\mu_j,\sigma_j^2) of size 500$ (where j=1 or 2).
 
 The following figure shows the vector ploted for different values of t.
 \img{etude_hmmrand}{0.4}{{\color{blue}Blue : Sample at a time $t_1$. $\mu=-0.0065$ and $\sigma^2=0.985$}\\ {\color{red}Red: Sample at a time $t_2$. $\mu=2.9759$ and $\sigma^2=3.8953$}\\ The width lines represent the mean of the samples}\\
-\begin{pushright}{Note}
-  It is easy to find out in which state the system was when the sample was produced. On the figure \ref{etude_hmmrand} the samples have very different means (0 et 3) et very different variance.
+\begin{pushright}{Observation}
+  It is easy to find out in which state the system was when the sample was produced. On the figure \ref{etude_hmmrand} the samples have very different means and variances.
 \end{pushright}
+
+\section{HMM behavior 2/2}
+We now modify the mean of $b_{2}$, $\mu_{2}$ so that it is equal to $\mu_{1}$ : $\mu_{1}=\mu_{2}=0$. 
+
+We can easily notice a change with the previous HMM. On the figure below are represented a sample produced while the state was 1 in blue, and when the state was 2 in red :
+
+\includegraphics[width=15cm]{Question_5_mean_bis.jpg}
+
+Here, we can see that both means are mingled so it seems impossible to determine whether the observation sample was produced under the state 1 or 2. Even if the standard deviations are different, it is not sufficient to spot the state at the moment the sample was produced. 
+
+\section{Finite-duration HMMs}
+The implementation works with finite duration Markov chain.\\
+We defined a transition matrix $A = \begin{pmatrix}
+  0.6 & 0.3 & 0.1\\
+  0.5 & 0.4 & 0.1\\
+\end{pmatrix}$ for a Markov chain, then a HMM based on this Markov chain, and the call to @HMM/rand returns the correct information. The difference is that we don't know how long the sequence will be since we don't know precisely when the system will enter the exit state.
+
+
+
+
+
 \end{document}
