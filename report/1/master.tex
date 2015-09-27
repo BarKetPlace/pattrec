@@ -66,7 +66,7 @@
 \bibliographystyle{apalike}
 
 %Environnement insersion image
-\newcommand{\img}[3]{\begin{figure}[!h] \centering \includegraphics[scale=#2]{#1} \caption{#3} \label{#1} \end{figure}}
+\newcommand{\img}[3]{\begin{figure}[!h] \centering \includegraphics[scale=#2]{#1}\captionsetup{justification=centering} \caption{#3} \label{#1} \end{figure}}
   % commande \img{nom image}{scale}{legende}
 
 %TODO
@@ -165,5 +165,13 @@ As we can see on the figures \ref{hmmrand:var} and \ref{hmmrand:mean} the experi
 \captionsetup{justification=centering}
     \caption{Validation of @HMM/rand\\\color{blue}{Blue : Plot of the 20 attempts}\\\color{red}{Red : Mean over the 20 attempts}}
 \end{figure}
+\pagebreak
+\section{HMM behavior}
+For this part, we changed the behavior of the @HMM/rand function, in order to get a vector from $b_{1}$ (not a scalar like the previous question). So here, each sample is a vector $x_{t} \sim N(\mu_j,\sigma_j^2)$ (where j=1 or 2).
 
+The following figure shows the vector ploted for different values of t.
+\img{etude_hmmrand}{0.4}{{\color{blue}Blue : Sample at a time $t_1$. $\mu=-0.0065$ and $\sigma^2=0.985$}\\ {\color{red}Red: Sample at a time $t_2$. $\mu=2.9759$ and $\sigma^2=3.8953$}\\ The width lines represent the mean of the samples}\\
+\begin{pushright}{Note}
+  It is easy to find out in which state the system was when the sample was produced. On the figure \ref{etude_hmmrand} the samples have very different means (0 et 3) et very different variance.
+\end{pushright}
 \end{document}

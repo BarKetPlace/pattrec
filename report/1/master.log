@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.9.24)  27 SEP 2015 16:42
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.9.24)  27 SEP 2015 17:45
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -904,7 +904,7 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 21.
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-<figures/kth-logo.jpg, id=26, 285.7074pt x 285.7074pt>
+<figures/kth-logo.jpg, id=30, 285.7074pt x 285.7074pt>
 File: figures/kth-logo.jpg Graphic file (type jpg)
 
 <use figures/kth-logo.jpg>
@@ -934,62 +934,70 @@ been already used, duplicate ignored
                    \relax 
 l.158 \subsection
                  {Measures} [1]
-<figures/var_hmmrand.jpg, id=52, 1798.72pt x 691.58376pt>
+<figures/var_hmmrand.jpg, id=56, 1798.72pt x 691.58376pt>
 File: figures/var_hmmrand.jpg Graphic file (type jpg)
 
 <use figures/var_hmmrand.jpg>
 Package pdftex.def Info: figures/var_hmmrand.jpg used on input line 163.
 (pdftex.def)             Requested size: 449.6789pt x 172.89551pt.
 
-<figures/mean_hmmrand.jpg, id=53, 1798.72pt x 691.58376pt>
+<figures/mean_hmmrand.jpg, id=57, 1798.72pt x 691.58376pt>
 File: figures/mean_hmmrand.jpg Graphic file (type jpg)
 
 <use figures/mean_hmmrand.jpg>
 Package pdftex.def Info: figures/mean_hmmrand.jpg used on input line 164.
 (pdftex.def)             Requested size: 449.6789pt x 172.89551pt.
+ [2 <./figures/var_hmmrand.jpg> <./figures/mean_hmmrand.jpg>] <figures/etude_hm
+mrand.jpg, id=69, 899.36pt x 685.56125pt>
+File: figures/etude_hmmrand.jpg Graphic file (type jpg)
+
+<use figures/etude_hmmrand.jpg>
+Package pdftex.def Info: figures/etude_hmmrand.jpg used on input line 173.
+(pdftex.def)             Requested size: 359.73763pt x 274.21964pt.
  
 AED: lastpage setting LastPage
-[2 <./figures/var_hmmrand.jpg> <./figures/mean_hmmrand.jpg>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 169.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 169.
+[3 <./figures/etude_hmmrand.jpg>]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 177.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 177.
  (./master.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 169.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 169.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 177.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 177.
 Package rerunfilecheck Info: File `master.out' has not changed.
-(rerunfilecheck)             Checksum: BD701E4AAE5CA59E97A0AC7A7587A2F6;255.
+(rerunfilecheck)             Checksum: ED1A69BE61F06F5994251735DF747987;304.
 
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 169.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 177.
  ) 
 Here is how much of TeX's memory you used:
- 9251 strings out of 494999
- 135894 string characters out of 6180228
- 230414 words of memory out of 5000000
- 12305 multiletter control sequences out of 15000+600000
- 13447 words of font info for 50 fonts, out of 8000000 for 9000
+ 9263 strings out of 494999
+ 136112 string characters out of 6180228
+ 230655 words of memory out of 5000000
+ 12312 multiletter control sequences out of 15000+600000
+ 13755 words of font info for 51 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 36i,12n,47p,265b,447s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 36i,12n,47p,359b,447s stack positions out of 5000i,500n,10000p,200000b,80000s
  </home/antoine/.texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1000.600pk> </home
 /antoine/.texmf-var/fonts/pk/ljfour/jknappen/ec/tcss1728.600pk></usr/share/texl
-ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texlive/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fo
-nts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/ty
-pe1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
-lic/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
-fonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.p
-fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></u
-sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/s
-hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/t
-exlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on master.pdf (3 pages, 833090 bytes).
+ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texlive/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7
+.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></u
+sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/sha
+re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/share/t
+exlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-
+dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
+Output written on master.pdf (4 pages, 935040 bytes).
 PDF statistics:
- 121 PDF objects out of 1000 (max. 8388607)
- 96 compressed objects within 1 object stream
- 11 named destinations out of 1000 (max. 500000)
- 56 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 139 PDF objects out of 1000 (max. 8388607)
+ 110 compressed objects within 2 object streams
+ 14 named destinations out of 1000 (max. 500000)
+ 69 words of extra memory for PDF output out of 10000 (max. 10000000)
 

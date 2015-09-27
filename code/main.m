@@ -27,7 +27,7 @@ mc = MarkovChain(q,A);
 % f2 = nb2/T;
 %% Test HMM rand
 clear all
-nSamples = 10000;
+nSamples = 100;
 q = [0.75; 0.25];
 A = [0.99 0.01; 0.03 0.97];
 mc = MarkovChain(q,A);
@@ -36,7 +36,19 @@ pDgen(1)=GaussD('Mean',[0],'StDev',[1]);
 pDgen(2)=GaussD('Mean',[3],'StDev',[2]);
 
 h = HMM(mc, pDgen);
-nAtt = 20;
+[X,S] = h.rand(nSamples);
+i=1;
+%%
+clf
+figure(3),
+i1 = 4;
+plot(1:500, X(i1,:), '-r'); hold on; plot(1:500, mean(X(i1,:))*zeros(500), '-r', 'LineWidth', 2); hold on;
+i2 = 5;
+plot(1:500, X(i2,:), '-b'); hold on; plot(1:500, mean(X(i2,:))*ones(500), '-b', 'LineWidth', 2);
+xlabel('Sample number'); ylabel('Sample Value'); title('Output of HMM for two different state');
+%legend(['State :: ' num2str(S(i1))],'Mu 1',['State :: ' num2str(S(i2))], 'Mu 2')
+%% Mean/var 
+nAtt = 1;
 Att = 1:nAtt;
 for i = Att
     [X,S] = h.rand(nSamples);
