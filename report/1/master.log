@@ -1,9 +1,12 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.9.24)  27 SEP 2015 19:50
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.9.24)  27 SEP 2015 21:31
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**\input master.tex
-(./master.tex (/usr/share/texlive/texmf-dist/tex/latex/base/report.cls
+**master.tex
+(./master.tex
+LaTeX2e <2011/06/27>
+Babel <3.9h> and hyphenation patterns for 4 languages loaded.
+(/usr/share/texlive/texmf-dist/tex/latex/base/report.cls
 Document Class: report 2007/10/19 v1.4h Standard LaTeX document class
 (/usr/share/texlive/texmf-dist/tex/latex/base/size10.clo
 File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
@@ -904,7 +907,7 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 21.
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-<figures/kth-logo.jpg, id=38, 285.7074pt x 285.7074pt>
+<figures/kth-logo.jpg, id=42, 285.7074pt x 285.7074pt>
 File: figures/kth-logo.jpg Graphic file (type jpg)
 
 <use figures/kth-logo.jpg>
@@ -934,59 +937,59 @@ been already used, duplicate ignored
                    \relax 
 l.158 \subsection
                  {Measures} [1]
-<figures/var_hmmrand.jpg, id=64, 1798.72pt x 691.58376pt>
+<figures/var_hmmrand.jpg, id=68, 1798.72pt x 691.58376pt>
 File: figures/var_hmmrand.jpg Graphic file (type jpg)
 
 <use figures/var_hmmrand.jpg>
-Package pdftex.def Info: figures/var_hmmrand.jpg used on input line 163.
+Package pdftex.def Info: figures/var_hmmrand.jpg used on input line 164.
 (pdftex.def)             Requested size: 449.6789pt x 172.89551pt.
 
-<figures/mean_hmmrand.jpg, id=65, 1798.72pt x 691.58376pt>
+<figures/mean_hmmrand.jpg, id=69, 1798.72pt x 691.58376pt>
 File: figures/mean_hmmrand.jpg Graphic file (type jpg)
 
 <use figures/mean_hmmrand.jpg>
-Package pdftex.def Info: figures/mean_hmmrand.jpg used on input line 164.
+Package pdftex.def Info: figures/mean_hmmrand.jpg used on input line 165.
 (pdftex.def)             Requested size: 449.6789pt x 172.89551pt.
  [2 <./figures/var_hmmrand.jpg> <./figures/mean_hmmrand.jpg>] <figures/etude_hm
-mrand.jpg, id=77, 899.36pt x 685.56125pt>
+mrand.jpg, id=81, 899.36pt x 685.56125pt>
 File: figures/etude_hmmrand.jpg Graphic file (type jpg)
 
 <use figures/etude_hmmrand.jpg>
-Package pdftex.def Info: figures/etude_hmmrand.jpg used on input line 173.
+Package pdftex.def Info: figures/etude_hmmrand.jpg used on input line 174.
 (pdftex.def)             Requested size: 359.73763pt x 274.21964pt.
 
-<figures/Question_5_mean_bis.jpg, id=79, 1372.12625pt x 654.445pt>
+<figures/Question_5_mean_bis.jpg, id=83, 1372.12625pt x 654.445pt>
 File: figures/Question_5_mean_bis.jpg Graphic file (type jpg)
 
 <use figures/Question_5_mean_bis.jpg>
-Package pdftex.def Info: figures/Question_5_mean_bis.jpg used on input line 183
+Package pdftex.def Info: figures/Question_5_mean_bis.jpg used on input line 184
 .
 (pdftex.def)             Requested size: 426.79134pt x 203.56488pt.
  [3 <./figures/etude_hmmrand.jpg>]
 
 AED: lastpage setting LastPage
 [4 <./figures/Question_5_mean_bis.jpg>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 198.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 198.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 200.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 200.
  (./master.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 198.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 198.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 200.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 200.
 Package rerunfilecheck Info: File `master.out' has not changed.
-(rerunfilecheck)             Checksum: 91F1DF9D09EE7E159E76DF5787E15B9D;418.
+(rerunfilecheck)             Checksum: 4AD888F1E6E164D169FA6C225F25DEB0;469.
 
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 198.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 200.
  ) 
 Here is how much of TeX's memory you used:
- 9273 strings out of 494999
- 136332 string characters out of 6180228
+ 9275 strings out of 494999
+ 136356 string characters out of 6180228
  230655 words of memory out of 5000000
- 12318 multiletter control sequences out of 15000+600000
+ 12319 multiletter control sequences out of 15000+600000
  13755 words of font info for 51 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 36i,13n,47p,359b,447s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 36i,13n,47p,384b,447s stack positions out of 5000i,500n,10000p,200000b,80000s
  </home/antoine/.texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1000.600pk> </home
 /antoine/.texmf-var/fonts/pk/ljfour/jknappen/ec/tcss1728.600pk></usr/share/texl
 ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/te
@@ -1003,10 +1006,10 @@ re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/share/t
 exlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive
 /texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-
 dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on master.pdf (5 pages, 1026998 bytes).
+Output written on master.pdf (5 pages, 1029932 bytes).
 PDF statistics:
- 153 PDF objects out of 1000 (max. 8388607)
- 122 compressed objects within 2 object streams
- 17 named destinations out of 1000 (max. 500000)
- 90 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 157 PDF objects out of 1000 (max. 8388607)
+ 126 compressed objects within 2 object streams
+ 18 named destinations out of 1000 (max. 500000)
+ 98 words of extra memory for PDF output out of 10000 (max. 10000000)
 

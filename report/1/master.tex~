@@ -5,6 +5,7 @@
 \usepackage[english, francais]{babel} %langue
 
 \usepackage{graphicx} %Include fig
+\usepackage{caption} %center the caption
 \usepackage{subfig} %Include subfig
 \usepackage{lastpage} %ref LastPage 
 \usepackage{fancyhdr} % headers,footers
@@ -17,6 +18,8 @@
 \usepackage{color} %couleurs
 \usepackage{float}
 \usepackage[hidelinks]{hyperref} %Liens intradoc et url
+\usepackage{titlepic}
+
 %\usepackage{algorithm}
 %\usepackage{algorithmic} %Algo en pseudo code
 %\usepackage{algorithm2e} %for psuedo code
@@ -41,8 +44,9 @@
 \oddsidemargin -.5 cm
 
 %Titre
-\title{Pattern recognition project\\Report\\Assignment n°1}
+\title{Pattern recognition\\Report\\Assignment n°1}
 \author{Audrey Brouard \and Antoine Honoré}
+
 
 
 %Type de numérotation des sections & sous-sections
@@ -62,7 +66,7 @@
 \bibliographystyle{apalike}
 
 %Environnement insersion image
-\newcommand{\img}[3]{\begin{figure}[!h] \centering \includegraphics[scale=#2]{#1} \caption{#3} \label{#1} \end{figure}}
+\newcommand{\img}[3]{\begin{figure}[!h] \centering \includegraphics[scale=#2]{#1}\captionsetup{justification=centering} \caption{#3} \label{#1} \end{figure}}
   % commande \img{nom image}{scale}{legende}
 
 %TODO
@@ -79,19 +83,118 @@
 \pagestyle{fancy}  % Activation en-tête et pied de page
 
 %En-tête
-\fancyhead[L]{Antoine Honoré - Rapport de stage 2A}
+\fancyhead[L]{Audrey Brouard \& Antoine Honoré - Pattern recognition - Assignment n°1}
 %\fancyhead[C]{}
 %\fancyhead[R]{}
 % Pied de page
 \newcommand{\width}{3cm}
 %\fancyfoot[L]{ \includegraphics[width=\width]{logo-gipsa} }
-\fancyfoot[C]{ \thepage~/~\pageref{doclastpage} }
+\fancyfoot[C]{ \thepage~/~\pageref{LastPage} }
 %\fancyfoot[R]{ \includegraphics[width=\width]{logo-phelma} }
 
-
+\titlepic{\includegraphics[scale=0.6]{kth-logo}}
 
 \begin{document}
-\maketitle
+
+%%%%%%%%%%%%%%%% TITLE %%%%%%%%%%%%%%%%
+\input{title.tex}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{}
+
+Let us calculate $P(S_{t}=j)$ $ \forall j\in\{1,2\} $ and for t = 1,2,3,...
+
+We will do it $ \forall t\in\{1..3\} $ and notice that this is constant $\forall t$.
+
+\begin{itemize}
+  \item For t = 1, the probabilities are given by the matrix $q_{j}$. Thus, $P(S_{1}=1) = 0.75$ and $P(S_{1}=2) = 0.25$.\\
+\end{itemize}
+$\forall t\geq 2$, we will use the following formula :
+
+	\begin{itemize}
+	  \item $P(S_{t}=j) = \sum_{i=1}^{2} P({S_t}=j,S_{t-1}=i) = \sum_{i=1}^{2} P(S_t=j|S_{t-1}=i)P(S_{t-1}=i)$\\
+	\end{itemize}
+
+For the case t = 2, we have :
+\begin{itemize}
+  \item $P(S_t=j) = \sum_{i=1}^{2} a_{ij} q_i$
+\end{itemize}
+
+We thus obtain $P(S_{2}=1)=0.75$  and $P(S_{2}=2)=0.25$.
+We immediately notice that \[\forall i~P(S_{2}=i) = P(S_{1}=i)\].
+By recurrency, we have $\forall t~\Pr(S_{t}=j)$ constant.
+
+\section{}
+After we generated 10 000 state integers, we found the following probabilities :
+\[\Pr(S_{t} = 1) = 0.7525~and~\Pr(S_{t} = 2) = 0.2475\]
+
+\section{@HMM/rand}
+\subsection{Theorical calculation}
+Let us now calculate $E[X_{t}]$ and $Var[X_{t}]$.
+
+\begin{itemize}
+	\item 
+	$E[X_{t}]$ : the book gives the formula $E[X]=E_{S}[E_{X}[X|S]]$, and according to the two different possible values of S, X density probability function is either $b_{1}$ or $b_{2}$.
+	
+	Then, for j = 1, $E[X|S]=\mu_{1}$ ;
+	and for j = 2, $E[X|S]=\mu_{2}$.
+	
+	
+	$E[X]=P(S=1)*\mu_{1} + P(S=2)*\mu_{2} = 0 + 3*0.25 = 0.75$.
+	
+\end{itemize}
+
+\begin{itemize}
+	\item $Var[X_{t}]$ : according to the book, $Var[X_{t}]=E_{S}[Var_{X}[X|S]] + Var_{S}[E_{X}[X|S]]]$.
+	
+	Thanks to the same observation as before, the expression becomes :
+	
+	$Var[X_{t}]=[0.75 * \sigma_{1}^2 + 0.25*\sigma_{2}^2] + [0.75*\mu_{1}^2+0.25*\mu_{2}^2 - 0.75^2] = 1.75+0.25*9-0.75^2=3.4375$.
+\end{itemize}
+\pagebreak
+\subsection{Measures}
+One point on a graph represent the mean (figure \ref{hmmrand:mean}) and the variance (figure  \ref{hmmrand:var}) of T=10000 scalar output. There is 20 points on each graph.  This shows that the experimental values are close from the theoretical ones
+
+As we can see on the figures  the experimental values are close from the theoretical ones.
+\begin{figure}[!h]
+\centering
+    \subfloat[Variance of 10000 samples computed 20 times $E(Var(X)) \simeq 3.316$]{\includegraphics[scale = 0.25]{var_hmmrand}\label{hmmrand:var}}\\
+    \subfloat[Mean of 10000 samples computed 20 times $E(E(X)) \simeq 0.6981$]{\includegraphics[scale = 0.25]{mean_hmmrand}\label{hmmrand:mean}}
+\captionsetup{justification=centering}
+    \caption{Validation of @HMM/rand\\\color{blue}{Blue : Plot of the 20 attempts}\\\color{red}{Red : Mean over the 20 attempts}}
+\end{figure}
+\pagebreak
+\section{HMM behavior 1/2}
+For this part, we changed the behavior of the @HMM/rand function, in order to get a vector from $b_{1}$ (not a scalar like the previous question). So here, each sample is a vector $x_{t} \sim N(\mu_j,\sigma_j^2) of size 500$ (where j=1 or 2).
+
+The following figure shows the vector ploted for different values of t.
+\img{etude_hmmrand}{0.4}{{\color{blue}Blue : Sample at a time $t_1$. $\mu=-0.0065$ and $\sigma^2=0.985$}\\ {\color{red}Red: Sample at a time $t_2$. $\mu=2.9759$ and $\sigma^2=3.8953$}\\ The width lines represent the mean of the samples}\\
+\begin{pushright}{Observation}
+  It is easy to find out in which state the system was when the 500 samples were produced. On the figure \ref{etude_hmmrand} the samples have very different means and variances.
+\end{pushright}
+
+\section{HMM behavior 2/2}
+We now modify the mean of $b_{2}$, $\mu_{2}$ so that it is equal to $\mu_{1}$ : $\mu_{1}=\mu_{2}=0$. 
+
+We can easily notice a change with the previous HMM. On the figure below are represented a sample produced while the state was 1 in blue, and when the state was 2 in red :
+
+\includegraphics[width=15cm]{Question_5_mean_bis.jpg}
+
+Here, we can see that both means are mingled so it seems impossible to determine whether the observation sample was produced under the state 1 or 2. Even if the standard deviations are different, it is not sufficient to spot the state at the moment the sample was produced. 
+
+\section{Finite-duration HMMs}
+The implementation works with finite duration Markov chain.\\
+We defined a transition matrix $A = \begin{pmatrix}
+  0.6 & 0.3 & 0.1\\
+  0.5 & 0.4 & 0.1\\
+\end{pmatrix}$ for a Markov chain, then a HMM based on this Markov chain, and the call to @HMM/rand returns the correct information. The difference is that we don't know how long the sequence will be since we don't know precisely when the system will enter the exit state. The system enter the exit state for T=20 which makes sense considering the probability.
+
+\section{Output vectors}
+The @HMM/rand function has been tested and works good when the Output Distributions returns both vectors and scalars.
+
+
 
 \end{document}
