@@ -78,8 +78,8 @@ q = [0.75; 0.25; 0];
 A = [0.6 0.3 0.1; 0.5 0.4 0.1];
 mc = MarkovChain(q,A);
 
-pDgen(1)=GaussD('Mean',[0],'StDev',[1]);
-pDgen(2)=GaussD('Mean',[34],'StDev',[2]);
+pDgen(1)=GaussD('Mean',[0 0.1],'StDev',[13 2], 'Covariance', [2 1;1 4]);
+pDgen(2)=GaussD('Mean',[34 13],'StDev',[2 1]);
 
 h = HMM(mc, pDgen);
 [X,S] = h.rand(T);
