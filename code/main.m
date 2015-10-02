@@ -12,32 +12,24 @@ path = '../songs/';
 filename = 'melody_3.wav';
 [S Fs] = wavread(strcat(path,filename));
 nbSamples = sum(size(S))-1;
-nbSamples/Fs
-figure(1);
-% Time
-% plot(nbSamples/Fs*[0:1/nbSamples:1-1/nbSamples], S); xlabel('Time (s)'); ylabel('Sample value'); title('Signal');
-% Sample numbers
 
+%%%%%%%%%%%%%%%%
+% Plot & Play the sound
+%%%%%%%%%%%%%%%%
 
-hold on;
+%display_(S, Fs, 1, mute);
+
+%%%%%%%%%%%%%%%%
+% fft
+%%%%%%%%%%%%%%%%
+
+figure(1),
 Y = fft(S);
-figure(2);
-plot([0:1/nbSamples:0.5-1/nbSamples],Y(1:nbSamples/2)); xlim([0 0.3]); xlabel('Normalized frequencies'); ylabel('|FT(signal)|^2'); title('Fourier transform');
-%%%%%%%%%%%%%%%%
-% Play the sound
-%%%%%%%%%%%%%%%%
-scaling_f = 1; %x axis will be displayin sec if the scaling = Fs
+plot([0:1/nbSamples:0.5-1/nbSamples],Y(1:nbSamples/2)); xlim([0 0.3]);
+xlabel('Normalized frequencies'); ylabel('|FT(signal)|^2'); title('Fourier transform');
 
-play_(S, Fs, scaling_f);
-
-
-% elts = GetMusicFeatures(S, Fs);
-
-
-
-
-
-
-
-
-
+scaling_f = Fs;
+figure(2); subplot(2,1,1)
+spectrogram(S, 200, 50, 200, Fs, 'yaxis'); colorbar('off');
+subplot(2,1,2);
+display_(S, Fs, scaling_f, 0);
