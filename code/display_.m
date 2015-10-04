@@ -14,7 +14,7 @@ if (scaling_f == 1)  xlabel(['Samples']); xlim([1 nbSamples]); hold on;
 end
 
 if (~mute)
-
+    drawnow
     pause(0.5);
     player = audioplayer(S, Fs);
     play(player);
