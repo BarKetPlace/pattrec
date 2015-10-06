@@ -16,7 +16,8 @@ fromfile = 1; % Read a pre-recorded file (1) or record one (0)
     mute = 0; % Listen to the file
 
 Fs=0; %We do not know the value so far
-scaling_f = Fs; % Put Fs and the plot will be in seconds, put 1 to let the number of samples
+scaling_f = Fs; %caling factor for the temporal plots::
+                %Put Fs and the plots will be in seconds, put 1 to let the number of samples
 
 
 if fromfile
@@ -41,7 +42,7 @@ Y = fft(S);
 figure(1),
 scaling_f = 1;
 plot(scaling_f*[0:1/nbSamples:0.5-1/nbSamples],Y(1:nbSamples/2));% xlim([0 0.3]);
-xlabel('Normalized frequencies'); ylabel('|FT(signal)|^2'); title('Fourier transform');
+xlabel('Frequencies'); ylabel('|FT(signal)|^2'); title('Fourier transform');
 
 %%%%%%%%%%%%%%%%
 % Plot & (eventualy) Play the sound
@@ -70,18 +71,30 @@ x=zeros(1,nbFrames); % Will receive the new pitches
 
 for i=1:nbFrames
     if frIsequence(3,i)>=threshold*max_intensity
-        x(1,i) = frIsequence(1,i); %Save em !
+        x(1,i) = frIsequence(1,i); %Save it !
     else
-        x(1,i)=0; %Discard them !
+        x(1,i)=0; %Discard it !
     end   
 end
 figure(3), plot(x); title('Pitch with a threshold on intensity');
+
+% Strong assumption here : 
+% We consider that between two silences, the source is in the same
+% state. It means that the recorded pitch correspond to the same state.
+% The distribution of the pitch then define the b_j(x) for the state
+
+% TODO :: Consider a high variation of pitch (1 semiton) as a change of
+% state, semiton are defined in the book page 226 (in the middle).
+
+
 %% This part compute the median of the pitch when the pitch is ~= 0
+% Useless but sometimes the variance is huge
+
 m_ = zeros(1,nbFrames); %Will receive the result
 flag=0; %The flag = 1 when the x(1,i) ~=0 (the intensity was reasonable, see previous section)
 i=1;
 j=1; %count the number of pitches
-figure, title('Plot all the distribution of the pitch gathered in the same state');
+figure, 
 while i<=nbFrames
     while (i<=nbFrames && x(1,i)~=0)
         if (~flag)  start = i; end
@@ -100,12 +113,15 @@ while i<=nbFrames
     end
 i=i+1;
 end
+
+title('Plot all the distribution of the pitch gathered in the same state');
+
 figure, plot(m_); title('Medianed pitches');
 % plot_nb = 6;
 % figure, plot(xb(plot_nb,:), b(plot_nb,:));
 %%
 lowest = 20;
 q=2;
-octaves = log(lowest*q.^[0:9])
+octaves = log(lowest*q.^[0:9]);
 pitch_log=log(pitch);
 Rounded_pitches = interp1(octaves,octaves,pitch_log,'nearest')
