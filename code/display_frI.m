@@ -1,5 +1,17 @@
 function [] = display_frI( frIsequence, pitch, r, Intensity )
 %display_frI 
+% % This function plots some lines of the GetMusicFeatures output.
+% INPUT
+%     frIsequence :: Output of GetMusicFeatures
+%     pitch       :: Put 1 to plot the first row (0 otherwize)
+%     r           :: Put 1 to plot the second row (0 otherwize)
+%     Intensity   :: Put 1 to plot the third row (0 otherwize)
+%%----------------------------------------------------
+%Code Authors:
+% Antoine Honoré
+% Audrey Brouard
+%----------------------------------------------------
+
 
 if pitch 
 plot( frIsequence(1,:)/max(frIsequence(1,:)) ); hold on

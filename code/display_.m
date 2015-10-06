@@ -1,9 +1,17 @@
 function [] = display_(S,Fs,scaling_f,mute)
 %display_ 
+% subplot(2,1) ::   upper plot is the spectrogram(frequency vs time)
+%                   lower plot is the temporal signal (with a player)
+%
 % S is a vector containing the samples to play
 % Fs is the sampling frequency
 % scaling_f = Fs to display the x axis in sec, 
-%           = 1 otherwize
+%           = 1  to display x axis in samples
+%%----------------------------------------------------
+%Code Authors:
+% Antoine Honoré
+% Audrey Brouard
+%----------------------------------------------------
 
 nbSamples = sum(size(S))-1;
 top = max(S);

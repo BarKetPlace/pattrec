@@ -10,10 +10,17 @@ close all
 % Recording/reading folder
 path = '../songs/';
 
-fromfile = 0;
+% Parameters
+fromfile = 1; % Read a prerecorded file (1) or record one (0)
+    filename = 'melody_3.wav'; % Which one
+    mute = 0; % Listen to the file
+    
+scaling_f = Fs; % Put Fs and the plot will be in seconds, put 1 to let the number of samples
+
+
 if fromfile
-    filename = 'marseillaise1.wav';
     [S Fs] = audioread(strcat(path,filename));
+    
 else
     % Record your voice for 5 seconds.
     recObj = audiorecorder;
@@ -30,47 +37,44 @@ nbSamples = sum(size(S))-1;
 
 % Fourier Transform
 Y = fft(S);
+figure(1),
 scaling_f = 1;
 plot(scaling_f*[0:1/nbSamples:0.5-1/nbSamples],Y(1:nbSamples/2));% xlim([0 0.3]);
 xlabel('Normalized frequencies'); ylabel('|FT(signal)|^2'); title('Fourier transform');
 
 %%%%%%%%%%%%%%%%
-% Plot & Play the sound
+% Plot & (eventualy) Play the sound
 %%%%%%%%%%%%%%%%
-figure(1),
-scaling_f = Fs;
-mute = 0;
-
 figure(2); subplot(2,1,1)
 spectrogram(S, 200, 50, 200, Fs, 'yaxis'); colorbar('off');
 title('Frequency vs time');
 subplot(2,1,2);
 display_(S, Fs, scaling_f, mute);
-
 %% 
 %%%%%%%%%%%%%%%%
 % Features extraction
 %%%%%%%%%%%%%%%%
-
-wind_size_sample = 10000;
-frIsequence = GetMusicFeatures(S, Fs, 0.03);%, wind_size_sample/Fs);
+frIsequence = GetMusicFeatures(S, Fs, 0.03);
 nbFrames=size(frIsequence,2);
 max_intensity = max(frIsequence(3,:));
-% figure(3),
-% display_frI(frIsequence,1,0,1);
-x=zeros(1,nbFrames);
+% Perform a threshold on the intensity, the pitch of the frame with an ...
+%   intensity >= alpha*max_intensity are copied, the other pitch are
+%   discarded(put to 0)
+x=zeros(1,nbFrames); % Will receive the new pitches
+
 for i=1:nbFrames
-    if frIsequence(3,i)>0.2*max_intensity 
+    if frIsequence(3,i)>0.2*max_intensity
         x(1,i) = frIsequence(1,i);
     else
         x(1,i)=0;
     end   
 end
-m_tmp = zeros(1,nbFrames);
-m_ = zeros(1,nbFrames);
 figure(3), plot(x); title('Pitch with a threshold on intensity');
-%% 
-j=1; flag=0; i=1;
+%% This part compute the median of the pitch when the pitch is ~=0
+m_tmp = zeros(1,nbFrames);
+m_ = zeros(1,nbFrames); %Will receive the result
+flag=0; %The flag = 1 when the x(1,i) ~=0 (the intensity was reasonable, see previous section)
+i=1;
 
 while i<=nbFrames
     while (i<=nbFrames && x(1,i)~=0)
@@ -83,30 +87,8 @@ while i<=nbFrames
         mean(x(1,start:stop));
         m_(1,start:stop) = median(x(1,start:stop));
         flag = 0;
-        j=j+1;
     end
-    %m_(1, i) = 0;
 i=i+1;
 end
 
-figure, plot(m_); title('Meaned pitches');
-
-% %% record
-% % Record your voice for 5 seconds.
-% recObj = audiorecorder;
-% disp('Start speaking.')
-% recordblocking(recObj, 5);
-% disp('End of Recording.');
-% 
-% % Play back the recording.
-% play(recObj);
-% 
-% % Store data in double-precision array.
-% myRecording = getaudiodata(recObj);
-% 
-% % Plot the waveform.
-% figure,
-% plot(myRecording);
-% S2 = myRecording(5000:end);
-% plot(S2)
-% S=S2
+figure, plot(m_); title('Medianed pitches');
