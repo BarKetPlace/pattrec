@@ -80,8 +80,7 @@ figure(3), plot(x); title('Pitch with a threshold on intensity');
 
 % Strong assumption here : 
 % We consider that between two silences, the source is in the same
-% state. It means that the recorded pitch correspond to the same state.
-% The distribution of the pitch then define the b_j(x) for the state
+% state. It means that the recorded pitch correspond to the same state.% The distribution of the pitch then define the b_j(x) for the state%
 
 % TODO :: Consider a high variation of pitch (1 semiton) as a change of
 % state, semiton are defined in the book page 226 (in the middle).
