@@ -127,7 +127,7 @@ Rounded_pitches = interp1(octaves,octaves,pitch_log,'nearest');
 
 %% New try
 lowest = 110;
-% highest = 260;
+highest = 260;
 
 nb_octave = 3;
 q = 2;
@@ -140,8 +140,7 @@ semitons = log(lowest)+[0:nb_semitons].*s;
 
 
 
-pitches = x(x~=0);
-pitches=pitches(pitches<1000);
-pitch_log=log(pitches);
+pitches = x(x~0 && x<1000);
+pitch_log=log(pitch);
 Rounded_pitches = interp1(semitons,semitons,pitch_log,'nearest');
 
