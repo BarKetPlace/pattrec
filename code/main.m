@@ -11,29 +11,28 @@ close all
 path = '../songs/';
 
 % Parameters
-fromfile = 1; % Read a pre-recorded file (1) or record one (0)
-    filename = 'melody_3.wav';
+fromfile = 0; % Read a pre-recorded file (1) or record one (0)
+    filename = 'highwaytohell1.wav';
     mute = 0; % Listen to the file
 
 Fs=0; %We do not know the value so far
 scaling_f = Fs; %caling factor for the temporal plots::
                 %Put Fs and the plots will be in seconds, put 1 to let the number of samples
 
-
 if fromfile
     [S Fs] = audioread(strcat(path,filename));
-    
 else
     % Record your voice for 5 seconds.
-    recObj = audiorecorder;
-    fprintf('record in :: ')
+    Fs=44200;
+    recObj = audiorecorder(Fs,16,1);
+    fprintf('Record in :: ');
     fprintf('3'); pause(1); fprintf('\b2'); pause(1); fprintf('\b1'); pause(1);
-    fprintf('\b\b\b\b\b\b\b\b\b\b\b\b\b\bStart speaking!')
-    recordblocking(recObj, 5);
-    disp('End of Recording.');
-    S = getaudiodata(recObj)
+    fprintf('\b\b\b\b\b\b\b\b\b\b\b\b\b\bStart speaking!\n')
+    recordblocking(recObj, 8);
+    fprintf('End of Recording\n');
+    S = getaudiodata(recObj);
     Fs = recObj.SampleRate;
-    audiowrite(strcat(path,'highwaytohell.wav'), S, Fs);
+    audiowrite(strcat(path,'tnt.wav'), S, Fs);
 end
 nbSamples = sum(size(S))-1;
 
@@ -60,9 +59,9 @@ display_(S, Fs, scaling_f, mute);
 frIsequence = GetMusicFeatures(S, Fs, 0.02);
 nbFrames=size(frIsequence,2);
 max_intensity = max(frIsequence(3,:));
+figure, display_frI(frIsequence, 1,1,1);
 
-
-%Removing the silence
+%Removing the noise (~1000Hz) during the silence
 threshold = 0.2;%We assume that sounds with intensity >= threshold*max_intensity contains information
 % Perform a threshold on the intensity, the pitch of the frame with an ...
 %   intensity >= alpha*max_intensity are copied, the other pitch are
@@ -123,4 +122,4 @@ lowest = 20;
 q=2;
 octaves = log(lowest*q.^[0:9]);
 pitch_log=log(pitch);
-Rounded_pitches = interp1(octaves,octaves,pitch_log,'nearest')
+Rounded_pitches = interp1(octaves,octaves,pitch_log,'nearest');
