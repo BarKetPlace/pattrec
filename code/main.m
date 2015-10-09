@@ -11,8 +11,8 @@ close all
 path = '../songs/';
 
 % Parameters
-fromfile = 0; % Read a pre-recorded file (1) or record one (0)
-    filename = 'highwaytohell1.wav';
+fromfile = 1; % Read a pre-recorded file (1) or record one (0)
+    filename = 'melody_3.wav';
     mute = 0; % Listen to the file
 
 Fs=0; %We do not know the value so far
@@ -59,7 +59,7 @@ display_(S, Fs, scaling_f, mute);
 frIsequence = GetMusicFeatures(S, Fs, 0.02);
 nbFrames=size(frIsequence,2);
 max_intensity = max(frIsequence(3,:));
-figure, display_frI(frIsequence, 1,1,1);
+figure, display_frI(frIsequence, 0,1,0);
 
 %Removing the noise (~1000Hz) during the silence
 threshold = 0.2;%We assume that sounds with intensity >= threshold*max_intensity contains information
@@ -117,31 +117,6 @@ title('Plot all the distribution of the pitch gathered in the same state');
 figure, plot(m_); title('Medianed pitches');
 % plot_nb = 6;
 % figure, plot(xb(plot_nb,:), b(plot_nb,:));
-%%
-lowest = 20;
-q=2;
-octaves = log(lowest*q.^[0:9]);
-pitch_log=log(pitch);
-Rounded_pitches = interp1(octaves,octaves,pitch_log,'nearest');
-
-
 %% New try
-lowest = 110;
-% highest = 260;
 
-nb_octave = 3;
-q = 2;
-
-octaves = log(lowest*q.^[0:nb_octave-1]); %The only octaves we're gonna need for this example, starting on A2
-
-nb_semitons = 12*nb_octave;
-s = 0.0578;
-semitons = log(lowest)+[0:nb_semitons].*s;
-
-
-
-pitches = x(x~=0);
-pitches=pitches(pitches<1000);
-pitch_log=log(pitches);
-Rounded_pitches = interp1(semitons,semitons,pitch_log,'nearest');
-
+find_offset(x)
