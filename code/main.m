@@ -13,7 +13,11 @@ path = '../songs/';
 % Parameters
 fromfile = 1; % Read a pre-recorded file (1) or record one (0)
     filename = 'melody_3.wav';
+<<<<<<< HEAD
     mute = 0; % Listen to the file
+=======
+    mute = 1; % Listen to the file
+>>>>>>> 7d951146846bb67ed862d9ab13055ae1ef8ab45f
 
 Fs=0; %We do not know the value so far
 scaling_f = Fs; %caling factor for the temporal plots::
@@ -32,7 +36,7 @@ else
     fprintf('End of Recording\n');
     S = getaudiodata(recObj);
     Fs = recObj.SampleRate;
-    audiowrite(strcat(path,'tnt.wav'), S, Fs);
+%     audiowrite(strcat(path,'tnt.wav'), S, Fs);
 end
 nbSamples = sum(size(S))-1;
 
@@ -120,3 +124,4 @@ figure, plot(m_); title('Medianed pitches');
 %% New try
 
 find_offset(x)
+
