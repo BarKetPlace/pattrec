@@ -49,6 +49,7 @@ title('Pitch');
 xlabel('time (s)');
 ylabel('pitch (Hz)');
 legend('Melody1','Melody2','Melody3');
+axis([0 8 100 300]);
 
 subplot(2,1,2)
 plot(t1,frIsequence1(3,:));
@@ -59,3 +60,4 @@ plot(t3,frIsequence3(3,:),'k');
 title('Intensity');
 xlabel('time (s)');
 ylabel('Intensity');
+axis([0 8 0 0.5]);
