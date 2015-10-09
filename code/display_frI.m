@@ -23,7 +23,7 @@ if Intensity
 plot( frIsequence(3,:)/max(frIsequence(3,:)) );
 end
 
-legend('Pitch', 'Corr', 'Intensity');
+% legend('Pitch', 'Corr', 'Intensity');
 xlabel('Frame number'); ylabel('Normalized values');
 
 end
