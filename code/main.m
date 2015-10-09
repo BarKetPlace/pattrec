@@ -11,9 +11,9 @@ close all
 path = '../songs/';
 
 % Parameters
-fromfile = 0; % Read a pre-recorded file (1) or record one (0)
-    filename = 'highwaytohell1.wav';
-    mute = 0; % Listen to the file
+fromfile = 1; % Read a pre-recorded file (1) or record one (0)
+    filename = 'melody_3.wav';
+    mute = 1; % Listen to the file
 
 Fs=0; %We do not know the value so far
 scaling_f = Fs; %caling factor for the temporal plots::
@@ -32,7 +32,7 @@ else
     fprintf('End of Recording\n');
     S = getaudiodata(recObj);
     Fs = recObj.SampleRate;
-    audiowrite(strcat(path,'tnt.wav'), S, Fs);
+%     audiowrite(strcat(path,'tnt.wav'), S, Fs);
 end
 nbSamples = sum(size(S))-1;
 
@@ -126,7 +126,7 @@ Rounded_pitches = interp1(octaves,octaves,pitch_log,'nearest');
 
 
 %% New try
-lowest = 110;
+lowest = 27.5;
 % highest = 260;
 
 nb_octave = 3;
@@ -145,3 +145,16 @@ pitches=pitches(pitches<1000);
 pitch_log=log(pitches);
 Rounded_pitches = interp1(semitons,semitons,pitch_log,'nearest');
 
+
+
+v = zeros(1,nbFrames);% vector containing the ratio between 2 adjacent samples
+
+v(1) = 0;
+
+for i = 2:nbFrames
+    if x(i-1)==0
+        v(i)=0;
+    else
+        v(i) = (x(i)/x(i-1));
+    end
+end
