@@ -4,7 +4,7 @@
 % Audrey Brouard
 %----------------------------------------------------
 
-clear all
+%clear all
 clc
 close all
 % Recording/reading folder
@@ -12,9 +12,9 @@ path = '../songs/';
 
 % Parameters
 fromfile = 1; % Read a pre-recorded file (1) or record one (0)
-    filename = 'melody_3.wav';
+    filename = 'melody_2.wav';
 
-    mute = 1; % Listen to the file
+    mute = 0; % Listen to the file
 
 Fs=0; %We do not know the value so far
 scaling_f = Fs; %caling factor for the temporal plots::
@@ -72,10 +72,13 @@ x=zeros(1,nbFrames); % Will receive the new pitches
 for i=1:nbFrames
     if frIsequence(3,i)>=threshold*max_intensity
         x(1,i) = frIsequence(1,i); %Save it !
+%          if (i>1 && x(1,i) < 0.5*x(1,i-1) ) keyboard; x(1,i) = 0; end
     else
-        x(1,i)=0; %Discard it !
-    end   
+        x(1,i) = 0; %Discard it !
+    end
 end
+%Correction
+x(x>1000) = 0;
 figure(3), plot(x); title('Pitch with a threshold on intensity');
 
 % Strong assumption here : 
@@ -120,5 +123,5 @@ figure, plot(m_); title('Medianed pitches');
 % figure, plot(xb(plot_nb,:), b(plot_nb,:));
 %% New try
 
-test_melody1 = find_offset(x);
+% test_melody2 = find_offset(x);
 
