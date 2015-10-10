@@ -107,24 +107,40 @@
 
 
 1. Below are represented the pitch and intensity profiles of the 3 songs provided. 
-\img{Pitch_intens}{1}{Pitches and Intensity for the 3 melodies}
+\img{Pitch_intens}{.8}{Pitches and Intensity for the 3 melodies}
 
-On the pitch profile we can notice that that's we hardly see the different "useful" pitches as the noise has a pitch of around 1000Hz. If we zoom in a little we can make appear more clearly the different amplitude corresponding to different notes :
+On the pitch profile we can notice that that's we hardly see the different "useful" pitches as the noise has a pitch of around 1000Hz. The important thing here is that the pitch reaches 1000Hz with a very low intensity. Which means that a threshold on intensity should be enough to get rid of the noise. If we zoom in we can clearly read the pitch values corresponding to different notes :
 
-\img{Pitch_intens_zoom}{1}{Zoom}
+\img{Pitch_intens_zoom}{.8}{Zoom}
 
-Here on the pitch profile we can distinguish different value of pitch between 100Hz and 300Hz, which corresponds to different notes, globally spread over 1.5 octave.
+Here on the pitch profile we can distinguish different values of pitch between 100Hz and 300Hz, which corresponds to different notes, globally spread over 1.5 octave.
 
+\section{Design of the features extractor}
+\subsection{Our decisions}
+In order to fulfil all the conditions listed in the subject, we desingned our feature extractor as follows :
+\begin{itemize}
+\item First we extract the actual pitches by removing the noise around 1000Hz so that we only have the pitches containing a lot of information.
 
-2. In order to fulfil all the conditions listed in the subject, we desingned our feature extractor as follows :
+\item Then we interpolate the vector obtained with a vector containing all the notes in the range 20Hz-20kHz. This last vector was built thanks to the constant ratio between 2 consecutive semitons. This way we obtain a vector containing the different notes played in the song, but so far we are dependant of the octave.
 
-$\bullet$ First we extract the actual pitches by removing the noise around 1000Hz so that we only have the pitches corresponding to the melody.
+\item To that purpose, we set a reference to remove the offset of the melody. The reference is defined as the first pitch which is not a silence. After that, we are able to determine of how many semitons above or below the reference the next pitches are located. We thus obtain a vector containing the variation of semiton from the reference for each pitch, and infinity when it's a silence.
 
-$\bullet$ Then we interpolate the vector thus obtained with a vector containing all the notes in the range 20Hz-20kHz. This last vector was built thanks to the constant ratio between 2 consecutive semitons. This way we obtain a vector containing the different notes played in the song, but so far we are dependant of the octave.
+\item Finally, the duration of each note/silence will be determined by the number of time the source remains in the same state. To avoid temporal distorsion issues (a singer might sing faster or slower than another one), we will define a vector containing the ratio between two notes durations.
+\end{itemize}
 
-$\bullet$ To that purpose, we set a reference to remove the offset of the melody. The reference is defined as the first pitch which is not a silence. After that, we are able to determine of how many semitons above or below the reference the next pitches are located. We thus obtain a vector containing the variation of semiton against the reference for each pitch, and infinity when it's a silence.
+\subsection{Integration to PattRecClasses}
+The states correspond to the semitons offset. Let us consider an example : we extract such features $[0 4 4 4 4 0 -1 -1 \dots]$. This vector is a vector of frames and here the first one is the reference. The five following fours means that this part of the signal has a pitch 4 semitons above the reference. The states come naturally to be integers representing an offset of semi tons. The actual value of pitches in frame 2 to 5 are not the same, their distribution defines the distribution of state 4.
+The extraction of the offset is made in the function find\_offset.
 
-$\bullet$ Finally, the duration of each note/silence will be determined by the number of time the source remains in the smae state. To avoid problem of tempo, we will define a vector containing the ratio between to notes durations.
+\subsection{Example}
+Let us now consider a real example. Melody 1 and melody 2 are the same melody sung at a different level. Besides, the two songs do not have the same duration.
+To perform the test we followed these steps: \begin{itemize}
+\item Load the two songs;
+\item Run GetMusicFeatures with the default parameters on the two signals;
+\item Run find\_offset on the two signals and get $v_{1}~\&~v_{2}$, which represent the vectors of offset that we discussed about in the previous section.
 
-
+the plot of $v_{1}~\&~v_{2}$ is shown on figure \ref{test_extractor}.
+\end{itemize}
+\img{test_extractor}{.2}{ {\color{blue}Blue: first melody} {\color{blue}Red: second melody}}
+On the picture, we clearly see that the serie of semiton is the same. In the first melody, the singer hold the note longer than in the second. Besides, we can guess a constant difference between the two vectors.
 \end{document}

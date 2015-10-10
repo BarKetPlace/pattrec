@@ -14,7 +14,7 @@ path = '../songs/';
 fromfile = 1; % Read a pre-recorded file (1) or record one (0)
     filename = 'melody_2.wav';
 
-    mute = 0; % Listen to the file
+    mute = 1; % Listen to the file
 
 Fs=0; %We do not know the value so far
 scaling_f = Fs; %caling factor for the temporal plots::
@@ -123,5 +123,13 @@ figure, plot(m_); title('Medianed pitches');
 % figure, plot(xb(plot_nb,:), b(plot_nb,:));
 %% New try
 
-% test_melody2 = find_offset(x);
+test_melody2 = find_offset(x);
+%%
+figure,
+plot(test_melody1, '-b', 'LineWidth', 1.5); hold on;
+plot(test_melody2, '-r', 'LineWidth', 1.5); hold on;
+xlabel('Frame number');
+ylabel('Offset values');
+title('Comparaison between the same melody recorded in two different ways');
+legend('Melody 1','Melody 2');
 
