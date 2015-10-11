@@ -11,7 +11,7 @@ close all
 path = '../songs/';
 
 % Parameters
-fromfile = 0; % Read a pre-recorded file (1) or record one (0)
+fromfile = 1; % Read a pre-recorded file (1) or record one (0)
     filename = 'melody_3.wav';
     mute = 1; % Listen to the file
 
@@ -71,9 +71,9 @@ figure, plot(frIsequence(1,:)); title('Pitch with a threshold on intensity');
 
 %% New try
 
-[features_vector_1, ref1] = find_offset(frIsequence(1,:));
-figure, plot(features_vector_ref); hold on;
-     plot(features_vector_1); hold on;
+[features_vector, ref] = find_offset(frIsequence(1,:));
+figure, plot(features_vector); hold on;
+%      plot(features_vector_1); hold on;
 %     plot(features_vector_2); hold on;
 xlabel('Frame number');
 ylabel('Offset values');

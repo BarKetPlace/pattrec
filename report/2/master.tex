@@ -106,10 +106,10 @@
 \section{}
 
 
-1. Below are represented the pitch and intensity profiles of the 3 songs provided. 
+Below are represented the pitch and intensity profiles of the 3 songs provided. 
 \img{Pitch_intens}{.8}{Pitches and Intensity for the 3 melodies}
 
-On the pitch profile we can notice that that's we hardly see the different "useful" pitches as the noise has a pitch of around 1000Hz. The important thing here is that the pitch reaches 1000Hz with a very low intensity. Which means that a threshold on intensity should be enough to get rid of the noise. If we zoom in we can clearly read the pitch values corresponding to different notes :
+On the pitch profile we can notice that we hardly see the different "useful" pitches as the noise has a pitch of around 1000Hz. The important thing here is that the pitch reaches 1000Hz with a very low intensity. Which means that a threshold on intensity should be enough to get rid of the noise. If we zoom in we can clearly read the pitch values corresponding to different notes :
 
 \img{Pitch_intens_zoom}{.8}{Zoom}
 
@@ -157,5 +157,5 @@ So far, our feature extractor can recognize a song sung even if it's transposed,
 We tried to reproduce the melody 3 with our own voice. The result is shown on figure \ref{melody3_experience}.
 
 \img{melody3_experience}{.3}{{\color{blue}Blue: Melody 3}, {\color{red}Red: our own voice}}
-The feature extractor suffers from a lack of precision. It is very difficult to reproduce to same tracks of offset in normal\footnote{Means with the microphone of a laptop and without being an excellent singer} recording conditions. On figure \ref{melody3_experience} \& \ref{test_extractor}, there is still a constant difference between the to tracks of semitons. Our reference was supposed to tackle this issue. The choice of the reference is to be reconsidered but so far we didn't come up with a better solution.
+The feature extractor suffers from a lack of precision. It is very difficult to reproduce two same tracks of offset in normal\footnote{Means with the microphone of a laptop and without being an excellent singer} recording conditions. On figure \ref{melody3_experience} \& \ref{test_extractor}, there is still a constant difference between the two tracks of semitons. Our reference was supposed to tackle this issue. The choice of the reference is to be reconsidered but so far we didn't come up with a better solution.
 \end{document}

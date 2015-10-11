@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.9.24)  11 OCT 2015 22:01
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.9.24)  11 OCT 2015 22:12
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -903,24 +903,17 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 21.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-<figures/kth-logo.jpg, id=30, 285.7074pt x 285.7074pt>
-File: figures/kth-logo.jpg Graphic file (type jpg)
+) [1
 
-<use figures/kth-logo.jpg>
-Package pdftex.def Info: figures/kth-logo.jpg used on input line 30.
-(pdftex.def)             Requested size: 142.85333pt x 142.85333pt.
- [1
-
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./figures/kth-logo.jpg>])
-<figures/Pitch_intens.png, id=40, 422.32782pt x 316.18124pt>
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}])
+<figures/Pitch_intens.png, id=39, 422.32782pt x 316.18124pt>
 File: figures/Pitch_intens.png Graphic file (type png)
 
 <use figures/Pitch_intens.png>
 Package pdftex.def Info: figures/Pitch_intens.png used on input line 110.
 (pdftex.def)             Requested size: 337.8627pt x 252.94533pt.
 
-<figures/Pitch_intens_zoom.png, id=41, 422.32782pt x 316.18124pt>
+<figures/Pitch_intens_zoom.png, id=40, 422.32782pt x 316.18124pt>
 File: figures/Pitch_intens_zoom.png Graphic file (type png)
 
 <use figures/Pitch_intens_zoom.png>
@@ -940,14 +933,14 @@ been already used, duplicate ignored
 l.118 \section
               {Design of the feature extractor} [1 <./figures/Pitch_intens.png 
 (PNG copy)> <./figures/Pitch_intens_zoom.png (PNG copy)>]
-<figures/test_extractor.png, id=53, 422.32782pt x 316.18124pt>
+<figures/test_extractor.png, id=52, 422.32782pt x 316.18124pt>
 File: figures/test_extractor.png Graphic file (type png)
 
 <use figures/test_extractor.png>
 Package pdftex.def Info: figures/test_extractor.png used on input line 144.
 (pdftex.def)             Requested size: 190.04576pt x 142.28024pt.
  [2 <./figures/test_extractor.png (PNG copy)>]
-<figures/Comparison_3_songs.png, id=65, 1029.09468pt x 490.83376pt>
+<figures/Comparison_3_songs.png, id=64, 1029.09468pt x 490.83376pt>
 File: figures/Comparison_3_songs.png Graphic file (type png)
 
 <use figures/Comparison_3_songs.png>
@@ -960,7 +953,7 @@ Overfull \hbox (45.07562pt too wide) in paragraph at lines 149--149
  []
 
 [3 <./figures/Comparison_3_songs.png (PNG copy)>]
-<figures/melody3_experience.jpg, id=73, 899.36pt x 685.56125pt>
+<figures/melody3_experience.jpg, id=72, 899.36pt x 685.56125pt>
 File: figures/melody3_experience.jpg Graphic file (type jpg)
 
 <use figures/melody3_experience.jpg>
@@ -984,13 +977,13 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 161.
  ) 
 Here is how much of TeX's memory you used:
- 9255 strings out of 494999
- 136298 string characters out of 6180228
+ 9250 strings out of 494999
+ 136187 string characters out of 6180228
  230665 words of memory out of 5000000
- 12306 multiletter control sequences out of 15000+600000
+ 12302 multiletter control sequences out of 15000+600000
  10646 words of font info for 39 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 36i,13n,43p,557b,398s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 36i,13n,43p,559b,398s stack positions out of 5000i,500n,10000p,200000b,80000s
  </home/antoine/.texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1000.600pk> </home
 /antoine/.texmf-var/fonts/pk/ljfour/jknappen/ec/tcss1728.600pk></usr/share/texl
 ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/te
@@ -1002,10 +995,10 @@ c/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
 ts/cm/cmss12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
 cmssbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
 10.pfb>
-Output written on master.pdf (5 pages, 765530 bytes).
+Output written on master.pdf (5 pages, 182508 bytes).
 PDF statistics:
- 128 PDF objects out of 1000 (max. 8388607)
+ 127 PDF objects out of 1000 (max. 8388607)
  102 compressed objects within 2 object streams
  17 named destinations out of 1000 (max. 500000)
- 79 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 74 words of extra memory for PDF output out of 10000 (max. 10000000)
 
