@@ -1,6 +1,7 @@
 function [] = display_frI( frIsequence, pitch, r, Intensity )
 %display_frI 
-% % This function plots some lines of the GetMusicFeatures output.
+% % This function plots some lines of the GetMusicFeatures output. with a
+% normalization
 % INPUT
 %     frIsequence :: Output of GetMusicFeatures
 %     pitch       :: Put 1 to plot the first row (0 otherwize)

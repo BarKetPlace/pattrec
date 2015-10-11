@@ -11,19 +11,18 @@ close all
 path = '../songs/';
 
 % Parameters
-fromfile = 1; % Read a pre-recorded file (1) or record one (0)
+fromfile = 0; % Read a pre-recorded file (1) or record one (0)
     filename = 'melody_3.wav';
-
     mute = 1; % Listen to the file
 
-Fs=0; %We do not know the value so far
-scaling_f = Fs; %caling factor for the temporal plots::
+Fs = 0; %We do not know the value so far
+scaling_f = Fs; %scaling factor for the temporal plots::
                 %Put Fs and the plots will be in seconds, put 1 to let the number of samples
 
 if fromfile
     [S Fs] = audioread(strcat(path,filename));
 else
-    % Record your voice for 5 seconds.
+    % Record your voice for a few seconds.
     Fs=44200;
     recObj = audiorecorder(Fs,16,1);
     fprintf('Record in :: ');
@@ -53,84 +52,72 @@ title('Frequency vs time');
 subplot(2,1,2);
 display_(S, Fs, scaling_f, mute);
 %% 
-%%%%%%%%%%%%%%%%
-% Features extraction
-%%%%%%%%%%%%%%%%
-
-frIsequence = GetMusicFeatures(S, Fs, 0.02);
-nbFrames=size(frIsequence,2);
-max_intensity = max(frIsequence(3,:));
-figure, display_frI(frIsequence, 0,1,0);
-
-%Removing the noise (~1000Hz) during the silence
-threshold = 0.2;%We assume that sounds with intensity >= threshold*max_intensity contains information
-% Perform a threshold on the intensity, the pitch of the frame with an ...
-%   intensity >= alpha*max_intensity are copied, the other pitch are
-%   discarded(put to 0)
-x=zeros(1,nbFrames); % Will receive the new pitches
-
-for i=1:nbFrames
-    if frIsequence(3,i)>=threshold*max_intensity
-        x(1,i) = frIsequence(1,i); %Save it !
-%          if (i>1 && x(1,i) < 0.5*x(1,i-1) ) keyboard; x(1,i) = 0; end
-    else
-        x(1,i) = 0; %Discard it !
-    end
+window_size = 0;
+if window_size 
+    frIsequence = GetMusicFeatures(S, Fs, window_size);
+else
+    frIsequence = GetMusicFeatures(S, Fs);
 end
-%Correction
-x(x>1000) = 0;
-figure(3), plot(x); title('Pitch with a threshold on intensity');
+nbFrames=size(frIsequence,2);
+frIsequence = clean_low_intensity(frIsequence, nbFrames, Fs);
+
+%figure, display_frI(frIsequence, 1,0,0);
+figure, plot(frIsequence(1,:)); title('Pitch with a threshold on intensity');
 
 % Strong assumption here : 
 % We consider that between two silences, the source is in the same
-% state. It means that the recorded pitch correspond to the same state.% The distribution of the pitch then define the b_j(x) for the state%
+% state. It means that the recorded pitch correspond to the same state.
+% The distribution of the pitch in the same semiton define the b_j(x)
 
-% TODO :: Consider a high variation of pitch (1 semiton) as a change of
-% state, semiton are defined in the book page 226 (in the middle).
-
-
-%% This part compute the median of the pitch when the pitch is ~= 0
-% Useless but sometimes the variance is huge
-
-m_ = zeros(1,nbFrames); %Will receive the result
-flag=0; %The flag = 1 when the x(1,i) ~=0 (the intensity was reasonable, see previous section)
-i=1;
-j=1; %count the number of pitches
-figure, 
-while i<=nbFrames
-    while (i<=nbFrames && x(1,i)~=0)
-        if (~flag)  start = i; end
-        flag = 1;
-        i=i+1;
-    end
-    if flag
-        stop = i-1;
-        mean(x(1,start:stop));
-        m_(1,start:stop) = median(x(1,start:stop));
-        pitch(j) = m_(1,start);%save the value of the pitch
-        [b(j,:) xb(j,:)] = ksdensity(x(1,start:stop)); %b(i,:) contains the probability for the xb(i,:) values
-        plot(xb(j,:), b(j,:)); hold on;
-        j=j+1;
-        flag = 0;
-    end
-i=i+1;
-end
-
-title('Plot all the distribution of the pitch gathered in the same state');
-
-figure, plot(m_); title('Medianed pitches');
-% plot_nb = 6;
-% figure, plot(xb(plot_nb,:), b(plot_nb,:));
 %% New try
 
-test_melody3 = find_offset(x);
-%%
-figure,
-plot(test_melody1, '-b', 'LineWidth', 1.5); hold on;
-plot(test_melody2, '-r', 'LineWidth', 1.5); hold on;
-% plot(test_melody3, '-k', 'LineWidth', 1.5); hold on;
+[features_vector_1, ref1] = find_offset(frIsequence(1,:));
+figure, plot(features_vector_ref); hold on;
+     plot(features_vector_1); hold on;
+%     plot(features_vector_2); hold on;
 xlabel('Frame number');
 ylabel('Offset values');
-title('Comparison between the same melody recorded in two different ways');
-legend('Melody 1','Melody 2','Melody 3');
+title('Results of the features extractor');
 
+%%
+% figure,
+% plot(test_melody1, '-b', 'LineWidth', 1.5); hold on;
+% plot(test_melody2, '-r', 'LineWidth', 1.5); hold on;
+% % plot(test_melody3, '-k', 'LineWidth', 1.5); hold on;
+% xlabel('Frame number');
+% ylabel('Offset values');
+% title('Comparison between the same melody recorded in two different ways');
+% legend('Melody 1','Melody 2','Melody 3');
+% 
+%% This part compute the median of the pitch when the pitch is ~= 0
+% Not to be used so far
+% x = frIsequence(1,:);
+% m_ = zeros(1,nbFrames); %Will receive the result
+% flag=0; %The flag = 1 when the x(1,i) ~=0 (the intensity was reasonable, see previous section)
+% i=1;
+% j=1; %count the number of pitches
+% figure, 
+% while i<=nbFrames
+%     while (i<=nbFrames && x(1,i)~=0)
+%         if (~flag)  start = i; end
+%         flag = 1;
+%         i=i+1;
+%     end
+%     if flag
+%         stop = i-1;
+%         mean(x(1,start:stop));
+%         m_(1,start:stop) = median(x(1,start:stop));
+%         pitch(j) = m_(1,start);%save the value of the pitch
+%         [b(j,:) xb(j,:)] = ksdensity(x(1,start:stop)); %b(i,:) contains the probability for the xb(i,:) values
+%         plot(xb(j,:), b(j,:)); hold on;
+%         j=j+1;
+%         flag = 0;
+%     end
+% i=i+1;
+% end
+% 
+% title('Plot all the distribution of the pitch gathered in the same state');
+% 
+% figure, plot(m_); title('Medianed pitches');
+% plot_nb = 6;
+% figure, plot(xb(plot_nb,:), b(plot_nb,:));

@@ -123,7 +123,7 @@ In order to fulfil all the conditions listed in the subject, we designed our fea
 
 \item Then we interpolate the vector thus obtained with a vector containing all the notes in the range 20Hz-20kHz. This last vector was built thanks to the constant ratio between 2 consecutive semitons. This way we obtain a vector containing the different notes played in the song, but so far we are dependant of the octave.
 
-\item To that purpose, we set a reference to remove the offset of the melody. The reference is defined as the first pitch which is not a silence. After that, we are able to determine of how many semitons above or below the reference the next pitches are located. We thus obtain a vector containing the variation of semiton from the reference for each pitch, and infinity when it's a silence.
+\item To that purpose, we set a reference to remove the offset of the melody. The reference is defined as the first pitch which is not computed during a silence. After that, we are able to determine how many semitons above or below the reference the next pitches are located. We thus obtain a vector containing the variation of semiton from the reference for each pitch, and infinity (or NaN) when it's a silence.
 
 \item Finally, the duration of each note/silence will be determined by the number of time the source remains in the same state. To avoid temporal distorsion issues (a singer might sing faster or slower than another one), we will define a vector containing the ratio between two notes durations.
 \end{itemize}
@@ -141,19 +141,21 @@ To perform the test we followed these steps: \begin{itemize}
 
 the plot of $v_{1}~\&~v_{2}$ is shown on figure \ref{test_extractor}.
 \end{itemize}
-\img{test_extractor}{.2}{ {\color{blue}Blue: first melody} {\color{red}Red: second melody}}
-On the picture, we clearly see that the serie of semiton is the same. In the first melody, the singer hold the note longer than in the second. Besides, we can guess a constant difference between the two vectors.
+\img{test_extractor}{.45}{ {\color{blue}Blue: melody 1} {\color{red}Red: melody 2}}
+On the figure \ref{test_extractor}, we clearly see that the serie of semiton is the same. In the first melody, the singer hold the notes longer than in the second.
 
 
-On the contrary if we now had to the graphics the third melody, which is different from the 2 others, we can clearly see that the behaviour is completely different : 
-\img{Comparison_3_songs}{0.5}{Black: third melody, different from the  1 others}
+On the contrary if we now had to the graphics the third melody (figure \ref{Comparison_3_songs}), which is different from the 2 others, we can clearly see that the behaviour is completely different. 
+\img{Comparison_3_songs}{0.5}{Black: third melody, different from the  1 others\\The black track decreases only at the end of the song}
 
 As the song sung is different, the notes are different too which explains why the offset obtained varies. This is the behaviour we expected from our feature extractor.
 
-
+\pagebreak
 \subsection{Weaknesses of our feature extractor}
 
-So far, our feature extractor can recognize a song sung even if it's trasnposed, thanks to the offset. It can also recognize the song even if it's sung slower or quicker than the original. However, for the moment our feature extractor doesn't take in account the ambient noise which can influence the pitch of the notes played.
+So far, our feature extractor can recognize a song sung even if it's transposed, thanks to the offset. It can also recognize the song even if it's sung slower or quicker than the original. However, for the moment our feature extractor doesn't take into account the ambient noise which can influence the pitch of the notes played.
+We tried to reproduce the melody 3 with our own voice. The result is shown on figure \ref{melody3_experience}.
 
-TODO : plot the feature extracted from 2 identical melodies but transposed.
+\img{melody3_experience}{.3}{{\color{blue}Blue: Melody 3}, {\color{red}Red: our own voice}}
+The feature extractor suffers from a lack of precision. It is very difficult to reproduce to same tracks of offset in normal\footnote{Means with a laptop microphone and without being an excellent singer} recording conditions. On figure \ref{melody3_experience} \& \ref{test_extractor}, there is still a constant difference between the to tracks of semitons. Our reference was supposed to tackle this issue. The choice of the reference is to be reconsidered but so far we didn't come up with a better solution.
 \end{document}
