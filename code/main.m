@@ -43,9 +43,9 @@ scaling_f = 1;
 plot(scaling_f*[0:1/nbSamples:0.5-1/nbSamples],Y(1:nbSamples/2));% xlim([0 0.3]);
 xlabel('Frequencies'); ylabel('|FT(signal)|^2'); title('Fourier transform');
 
-%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Plot & (eventualy) Play the sound
-%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 figure(2); subplot(2,1,1)
 spectrogram(S, 200, 50, 200, Fs, 'yaxis'); colorbar('off');
 title('Frequency vs time');
