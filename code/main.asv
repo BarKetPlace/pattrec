@@ -128,9 +128,9 @@ test_melody3 = find_offset(x);
 figure,
 plot(test_melody1, '-b', 'LineWidth', 1.5); hold on;
 plot(test_melody2, '-r', 'LineWidth', 1.5); hold on;
-% plot(test_melody3, '-k', 'LineWidth', 1.5); hold on;
+plot(test_melody3, '-k', 'LineWidth', 1.5); hold on;
 xlabel('Frame number');
 ylabel('Offset values');
-title('Comparison between the same melody recorded in two different ways');
+title('Comparison between the 3 songs provided : 1 ');
 legend('Melody 1','Melody 2','Melody 3');
 

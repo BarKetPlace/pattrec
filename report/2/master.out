@@ -1,5 +1,6 @@
 \BOOKMARK [1][-]{section.0.1}{}{}% 1
-\BOOKMARK [1][-]{section.0.2}{Design of the features extractor}{}% 2
+\BOOKMARK [1][-]{section.0.2}{Design of the feature extractor}{}% 2
 \BOOKMARK [2][-]{subsection.0.2.1}{Our decisions}{section.0.2}% 3
 \BOOKMARK [2][-]{subsection.0.2.2}{Integration to PattRecClasses}{section.0.2}% 4
 \BOOKMARK [2][-]{subsection.0.2.3}{Example}{section.0.2}% 5
+\BOOKMARK [2][-]{subsection.0.2.4}{Weaknesses of our feature extractor}{section.0.2}% 6
