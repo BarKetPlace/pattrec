@@ -19,7 +19,8 @@ pDgen(2)=GaussD('Mean',[mu_2],'StDev',[sig_2]);
 h = HMM(mc, pDgen);
 % Observation
 X = [-.2, 2.6, 1.3];
-% Scale factor
+% Scale factor (from a forward algorithm)
 c = [1, .1625, .8266, .0581];
-[s, tmp] = pDgen.prob(X(3))
-% betaHat=backward(mc, pX, c);
+[pX, tmp] = pDgen.prob(X);
+
+betaHat = backward(mc, pX, c);
