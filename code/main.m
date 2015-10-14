@@ -4,16 +4,16 @@
 % Audrey Brouard
 %----------------------------------------------------
 
-%clear all
+clear all
 clc
 close all
 % Recording/reading folder
 path = '../songs/';
 
 % Parameters
-fromfile = 1; % Read a pre-recorded file (1) or record one (0)
-    filename = 'melody_3.wav';
-    mute = 1; % Listen to the file
+fromfile = 0; % Read a pre-recorded file (1) or record one (0)
+    filename = 'melody_2.wav';
+    mute = 0; % Listen to the file
 
 Fs = 0; %We do not know the value so far
 scaling_f = Fs; %scaling factor for the temporal plots::
@@ -25,28 +25,38 @@ else
     % Record your voice for a few seconds.
     Fs=44200;
     recObj = audiorecorder(Fs,16,1);
-    fprintf('Record in :: ');
-    fprintf('3'); pause(1); fprintf('\b2'); pause(1); fprintf('\b1'); pause(1);
-    fprintf('\b\b\b\b\b\b\b\b\b\b\b\b\b\bStart speaking!\n')
-    recordblocking(recObj, 8);
-    fprintf('End of Recording\n');
+    user = 'no';
+    while strcmp(user, 'no')
+        fprintf('Record in :: 3'); pause(1);
+        fprintf('\b2'); pause(1);
+        fprintf('\b1'); pause(1);
+        fprintf('\b\b\b\b\b\b\b\b\b\b\b\b\b\bStart speaking!\n')
+        recordblocking(recObj, 3);
+        fprintf('End of Recording\n');
+        
+        Stmp = getaudiodata(recObj);
+        Fstmp = recObj.SampleRate;
+        recObj.play
+        user = input('Good ? ', 's');
+    end
     S = getaudiodata(recObj);
     Fs = recObj.SampleRate;
+
 %     audiowrite(strcat(path,'tnt.wav'), S, Fs);
 end
 nbSamples = sum(size(S))-1;
 
-% Fourier Transform
-Y = fft(S);
-figure(1),
-scaling_f = 1;
-plot(scaling_f*[0:1/nbSamples:0.5-1/nbSamples],Y(1:nbSamples/2));% xlim([0 0.3]);
-xlabel('Frequencies'); ylabel('|FT(signal)|^2'); title('Fourier transform');
+% % Fourier Transform
+% Y = fft(S);
+% figure(1),
+% scaling_f = 1;
+% plot(scaling_f*[0:1/nbSamples:0.5-1/nbSamples],Y(1:nbSamples/2));% xlim([0 0.3]);
+% xlabel('Frequencies'); ylabel('|FT(signal)|^2'); title('Fourier transform');
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Plot & (eventualy) Play the sound
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-figure(2); subplot(2,1,1)
+figure, subplot(2,1,1)
 spectrogram(S, 200, 50, 200, Fs, 'yaxis'); colorbar('off');
 title('Frequency vs time');
 subplot(2,1,2);
@@ -58,7 +68,7 @@ if window_size
 else
     frIsequence = GetMusicFeatures(S, Fs);
 end
-nbFrames=size(frIsequence,2);
+nbFrames=size(frIsequence, 2);
 frIsequence = clean_low_intensity(frIsequence, nbFrames, Fs);
 
 %figure, display_frI(frIsequence, 1,0,0);
@@ -71,14 +81,13 @@ figure, plot(frIsequence(1,:)); title('Pitch with a threshold on intensity');
 
 %% New try
 
-[features_vector, ref] = find_offset(frIsequence(1,:));
+[features_vector_1, ref_1] = find_offset(frIsequence(1,:));
 figure, plot(features_vector); hold on;
-%      plot(features_vector_1); hold on;
+      plot(features_vector_1); hold on;
 %     plot(features_vector_2); hold on;
 xlabel('Frame number');
 ylabel('Offset values');
 title('Results of the features extractor');
-
 %%
 % figure,
 % plot(test_melody1, '-b', 'LineWidth', 1.5); hold on;
