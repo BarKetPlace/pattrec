@@ -4,7 +4,6 @@
 % Audrey Brouard
 %----------------------------------------------------
 
-
 clear all
 close all
 % Definition of the HMM
@@ -20,7 +19,8 @@ h = HMM(mc, pDgen);
 % Observation
 X = [-.2, 2.6, 1.3];
 % Scale factor (from a forward algorithm)
-c = [1, .1625, .8266, .0581];
+% c = [1, .1625, .8266, .0581];
 [pX, tmp] = pDgen.prob(X);
 
+[alfaHat, c]=forward(mc,pX);
 betaHat = backward(mc, pX, c);
