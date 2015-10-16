@@ -11,8 +11,8 @@ close all
 path = '../songs/';
 
 % Parameters
-filename = 'melody_3.wav'; % put filename = ''; to record your voice
-%     filename = '';
+% filename = 'melody_3.wav'; % put filename = ''; to record your voice
+    filename = '';
 mute = 1; % Listen to the file or not
 
 if ~strcmp(filename,'')
@@ -20,24 +20,26 @@ if ~strcmp(filename,'')
 else
     % Record your voice for a few seconds.
     Fs=44200;
-    recObj = audiorecorder(Fs,16,1);
+    recObj = audiorecorder(Fs, 16, 1);
     user = 'no';
+    i=0;
     while strcmp(user, 'no')
         fprintf('Record in :: 3'); pause(1);
         fprintf('\b2'); pause(1);
         fprintf('\b1'); pause(1);
         fprintf('\b\b\b\b\b\b\b\b\b\b\b\b\b\bStart speaking!\n')
-        recordblocking(recObj, 3);
+        recordblocking(recObj, 8);
         fprintf('End of Recording\n');
-        
+
         Stmp = getaudiodata(recObj);
         Fstmp = recObj.SampleRate;
-        recObj.play
+        recObj.play;
+        S = getaudiodata(recObj);
+        Fs = recObj.SampleRate;
+        audiowrite(strcat(path,[int2str(i) '.wav']), S, Fs);
         user = input('Good ? ', 's');
+        i=i+1;
     end
-    S = getaudiodata(recObj);
-    Fs = recObj.SampleRate;
-%     audiowrite(strcat(path,'tnt.wav'), S, Fs);
 end
 scaling_f = Fs; %scaling factor for the temporal plots::
                 %Put Fs and the plots will be in seconds, put 1 to let the number of samples
@@ -85,7 +87,7 @@ i=1;
 j=1; %count the number of pitches
 
 
-% figure, 
+% Perform median between silences
 while i<=nbFrames
     while (i<=nbFrames && x(1,i)~=0)
         if (~flag)  start = i; end
@@ -107,21 +109,20 @@ i=i+1;
 end
 
 %% New try
-
+sounds = 
+Sfreq
 [features_vector, ref] = find_offset( unique(m_,'stable'));
 figure, plot(features_vector); hold on;
 
-%     plot(features_vector_1); hold on;
-%     plot(features_vector_2); hold on;
 xlabel('Frame number');
 ylabel('Offset values');
 title([filename ':: Results of the features extractor']);
 %% Test train
 nStates = sum(size(features_vector)) - 1;
-for i = 1:nStates pD(i) = GaussD; end
+for i = 1:nStates pD(i) = GaussD('Mean',[features_vector(i)], 'StDev', [1]); end
 tmp = MarkovChain;
 mc2 = tmp.initLeftRight(nStates, 1);
-HMM1 = HMM(mc2,pD);
+HMM1 = HMM(mc2, pD);
 HMM1 = HMM1.init(features_vector, nStates);
 
 TrainedHMM = HMM1.train(features_vector, nStates);

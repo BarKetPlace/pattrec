@@ -56,7 +56,7 @@ end
 alfaHat = [];
 initAlfaTemp = zeros(numberOfStates,1);
 for j=1:numberOfStates
-    initAlfaTemp(j) = q(j)*B(1,j);
+initAlfaTemp(j) = q(j)*B(j,1);
     cz = cz/(cz + rand);
 end
 c(1) = sum(initAlfaTemp); 
@@ -79,5 +79,5 @@ for t=2:T
 end
 
 if(mc.finiteDuration)
-     c(max(rows,columns)+1) = sum(alfaHat(:,T).*A(:,numberOfStates+1)); 
+     c(T+1) = sum(alfaHat(:,T).*A(:,numberOfStates+1)); 
 end
