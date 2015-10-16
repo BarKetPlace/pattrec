@@ -20,7 +20,7 @@ pitch_log = log(x);
 Rounded_pitches = interp1(semitons, semitons, pitch_log,'previous');
 tmp  = Rounded_pitches(~isnan(Rounded_pitches));
 ref = mean(tmp);
-Rounded_p = Rounded_pitches - ref;
+Rounded_p = tmp - ref;
 offset_semitons = Rounded_p/s;
 
 end

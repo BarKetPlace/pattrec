@@ -59,7 +59,7 @@ for j=1:numberOfStates
     initAlfaTemp(j) = q(j)*B(1,j);
     cz = cz/(cz + rand);
 end
-c(1,1) = sum(initAlfaTemp); 
+c(1) = sum(initAlfaTemp); 
 for j=1:numberOfStates
     alfaHat = [alfaHat; initAlfaTemp(j)/c(1)];
     cz = cz*rand;
@@ -70,7 +70,7 @@ for t=2:T
     for j=1:numberOfStates
         alfaTemp(j,1) = B(j,t)*(sum(alfaHat(:,t-1)'*A(:,j)));
     end
-    c(t,1) = sum(alfaTemp(:,1)); 
+    c(t) = sum(alfaTemp(:,1)); 
     for j=1:numberOfStates
         alfaTemp(j,1) = alfaTemp(j,1)/c(t); 
         cz = sign(randn(1))*cz; 
