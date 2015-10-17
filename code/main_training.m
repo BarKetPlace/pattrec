@@ -6,7 +6,7 @@ S_=1;
 Fs_=1;
 path = '../songs/';
 filename = int2str(0:nFiles-1);
-for k = 1:2 %Repet it as long as there is files
+for k = 1:nFiles %Repet it as long as there is files
     [S Fs] = audioread(strcat(path, [int2str(k-1) '.wav']));
 %     S = S_(i);
 %     Fs = Fs_(i);
@@ -17,7 +17,7 @@ for k = 1:2 %Repet it as long as there is files
     nbSamples = sum(size(S))-1;
 
     
-    window_size = 0;
+    window_size = 0.08;
     if window_size
         frIsequence = GetMusicFeatures(S, Fs, window_size);
     else
