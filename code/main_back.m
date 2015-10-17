@@ -18,7 +18,7 @@ pDgen(2)=GaussD('Mean',[mu_2],'StDev',[sig_2]);
 h = HMM(mc, pDgen);
 
 
-% Observation
+% Observation (we create ranom observation)
 ntest = 50;
 X = pDgen(1).rand(ntest);
 X = [X pDgen(2).rand(ntest)];
@@ -26,13 +26,14 @@ X=X(randperm(length(X)));
 nX = sum(size(X))-1;
 
 %training
-nStates = 2;
-
+nStates = 2; % Assumption
 tmp = MarkovChain;
-mc2 = tmp.initLeftRight(nStates, 1);
+mc2 = tmp.initLeftRight(nStates, 1); % Initiate markov chain with nStates states
 trainedhmm = HMM(mc2, pDgen);
+%Let us say that X is made of two different realisation of the same process
 trainedhmm = trainedhmm.init(X, [ntest ntest]);
 trainedhmm = trainedhmm.train(X, [ntest ntest]);
+
 trainedhmm.StateGen.TransitionProb
 %%
 % Scale factor (from a forward algorithm)
