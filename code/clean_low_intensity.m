@@ -18,6 +18,8 @@ irrelevant = frIsequence(3,:)<=threshold*max_intensity;
 pitch(irrelevant) = 0;
 %Correct the very strong noises
 pitch(pitch>=900) = 0;
+% smooth = conv(pitch, [1 0.5 1]); 
+%pitch = smooth(2:end-1)
 frIsequence(1,:) = pitch;
 
 

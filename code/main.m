@@ -4,51 +4,61 @@
 % Audrey Brouard
 %----------------------------------------------------
 
-%clear all
+clear all
 clc
 close all
 % Recording/reading folder
 path = '../songs/';
 
 % Parameters
-fromfile = 1; % Read a pre-recorded file (1) or record one (0)
-    filename = 'melody_3.wav';
-    mute = 1; % Listen to the file
+% filename = 'melody_3.wav'; % put filename = ''; to record your voice
+    filename = '';
+mute = 1; % Listen to the file or not
 
-Fs = 0; %We do not know the value so far
-scaling_f = Fs; %scaling factor for the temporal plots::
-                %Put Fs and the plots will be in seconds, put 1 to let the number of samples
-
-if fromfile
+if ~strcmp(filename,'')
     [S Fs] = audioread(strcat(path,filename));
 else
     % Record your voice for a few seconds.
     Fs=44200;
-    recObj = audiorecorder(Fs,16,1);
-    fprintf('Record in :: ');
-    fprintf('3'); pause(1); fprintf('\b2'); pause(1); fprintf('\b1'); pause(1);
-    fprintf('\b\b\b\b\b\b\b\b\b\b\b\b\b\bStart speaking!\n')
-    recordblocking(recObj, 8);
-    fprintf('End of Recording\n');
-    S = getaudiodata(recObj);
-    Fs = recObj.SampleRate;
-%     audiowrite(strcat(path,'tnt.wav'), S, Fs);
+    recObj = audiorecorder(Fs, 16, 1);
+    user = 'no';
+    i=0;
+    while strcmp(user, 'no')
+        fprintf('Record in :: 3'); pause(1);
+        fprintf('\b2'); pause(1);
+        fprintf('\b1'); pause(1);
+        fprintf('\b\b\b\b\b\b\b\b\b\b\b\b\b\bStart speaking!\n')
+        recordblocking(recObj, 8);
+        fprintf('End of Recording\n');
+
+        Stmp = getaudiodata(recObj);
+        Fstmp = recObj.SampleRate;
+        recObj.play;
+        S = getaudiodata(recObj);
+        Fs = recObj.SampleRate;
+        audiowrite(strcat(path,[int2str(i) '.wav']), S, Fs);
+        user = input('Good ? ', 's');
+        i=i+1;
+    end
 end
+scaling_f = Fs; %scaling factor for the temporal plots::
+                %Put Fs and the plots will be in seconds, put 1 to let the number of samples
+
 nbSamples = sum(size(S))-1;
 
-% Fourier Transform
-Y = fft(S);
-figure(1),
-scaling_f = 1;
-plot(scaling_f*[0:1/nbSamples:0.5-1/nbSamples],Y(1:nbSamples/2));% xlim([0 0.3]);
-xlabel('Frequencies'); ylabel('|FT(signal)|^2'); title('Fourier transform');
+% % Fourier Transform
+% Y = fft(S);
+% figure(1),
+% scaling_f = 1;
+% plot(scaling_f*[0:1/nbSamples:0.5-1/nbSamples],Y(1:nbSamples/2));% xlim([0 0.3]);
+% xlabel('Frequencies'); ylabel('|FT(signal)|^2'); title('Fourier transform');
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Plot & (eventualy) Play the sound
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-figure(2); subplot(2,1,1)
+figure, subplot(2,1,1)
 spectrogram(S, 200, 50, 200, Fs, 'yaxis'); colorbar('off');
-title('Frequency vs time');
+title([filename ':: Frequency vs time']);
 subplot(2,1,2);
 display_(S, Fs, scaling_f, mute);
 %% 
@@ -58,27 +68,64 @@ if window_size
 else
     frIsequence = GetMusicFeatures(S, Fs);
 end
-nbFrames=size(frIsequence,2);
+nbFrames=size(frIsequence, 2);
 frIsequence = clean_low_intensity(frIsequence, nbFrames, Fs);
 
 %figure, display_frI(frIsequence, 1,0,0);
-figure, plot(frIsequence(1,:)); title('Pitch with a threshold on intensity');
+figure, plot(frIsequence(1,:)); title([filename ':: Pitch with a threshold on intensity']);
 
 % Strong assumption here : 
 % We consider that between two silences, the source is in the same
 % state. It means that the recorded pitch correspond to the same state.
 % The distribution of the pitch in the same semiton define the b_j(x)
 
-%% New try
+%%
+x = frIsequence(1,:);
+m_ = zeros(1,nbFrames); %Will receive the result
+flag=0; %The flag = 1 when the x(1,i) ~=0 (the intensity was reasonable, see previous section)
+i=1;
+j=1; %count the number of pitches
 
-[features_vector, ref] = find_offset(frIsequence(1,:));
+
+% Perform median between silences
+while i<=nbFrames
+    while (i<=nbFrames && x(1,i)~=0)
+        if (~flag)  start = i; end
+        flag = 1;
+        i=i+1;
+    end
+    if flag
+%         StateD = pDgen(j);
+        stop = i-1; 
+        m_(1,start:stop) = median(x(1,start:stop));
+        pitch(j) = m_(1,start); %save the value of the pitch
+        [b(j,:) xb(j,:)] = ksdensity(x(1,start:stop)); %b(i,:) contains the probability for the xb(i,:) values
+        pDgen(j) = DiscreteD(b(j,:), xb(j,:));
+        plot(xb(j,:), b(j,:)); hold on;
+        j=j+1;
+        flag = 0;
+    end
+i=i+1;
+end
+
+%% New try
+sounds = 
+Sfreq
+[features_vector, ref] = find_offset( unique(m_,'stable'));
 figure, plot(features_vector); hold on;
-%      plot(features_vector_1); hold on;
-%     plot(features_vector_2); hold on;
+
 xlabel('Frame number');
 ylabel('Offset values');
-title('Results of the features extractor');
+title([filename ':: Results of the features extractor']);
+%% Test train
+nStates = sum(size(features_vector)) - 1;
+for i = 1:nStates pD(i) = GaussD('Mean',[features_vector(i)], 'StDev', [1]); end
+tmp = MarkovChain;
+mc2 = tmp.initLeftRight(nStates, 1);
+HMM1 = HMM(mc2, pD);
+HMM1 = HMM1.init(features_vector, nStates);
 
+TrainedHMM = HMM1.train(features_vector, nStates);
 %%
 % figure,
 % plot(test_melody1, '-b', 'LineWidth', 1.5); hold on;

@@ -20,6 +20,6 @@ end;
 
 %*** Insert your own code here and remove the following error message 
 
-R = randsample( size(pD.ProbMass,1), nData, true, pD.ProbMass);
+R = randsample( pD.ProbValues, nData, true, pD.ProbMass);
 
 % error('Not yet implemented');
