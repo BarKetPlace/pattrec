@@ -46,6 +46,7 @@ scaling_f = Fs; %scaling factor for the temporal plots::
 
 nbSamples = sum(size(S))-1;
 
+
 % % Fourier Transform
 % Y = fft(S);
 % figure(1),

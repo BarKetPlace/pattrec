@@ -1,7 +1,7 @@
 clear all
 close all
 clc
-nFiles = 4;
+nFiles = 2;
 S_=1;
 Fs_=1;
 path = '../songs/';
