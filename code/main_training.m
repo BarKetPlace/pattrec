@@ -49,23 +49,27 @@ end
 %  We assume that b_j(x) is a gaussian around the value of the offset
 
     for l = 1:length(tab_mean)
-        pDgen(l) = GaussD('Mean',tab_mean(l),'StDev',1);
+        pDgen(l) = GaussD('Mean',tab_mean(l),'StDev',3);
     end
 % save load_9files.mat
 toc
 %% Training
 fprintf('Debut training\n');
 tic
-nStates = length(pDgen);
-tmp = MarkovChain;
-mc2 = tmp.initLeftRight(nStates, 1);% Initiate a finite Markovchain of nStates
-HMM1 = HMM(mc2, pDgen); 
-HMM1 = HMM1.init(X, xSize); % Initiate a HMM 
+nStates = length(tab_mean);
+% pDgen = MakeGMM(nStates, X);
+trained = MakeLeftRightHMM(nStates, pDgen, X, xSize);
 
-TrainedHMM = HMM1.train(X, xSize); % train it, here I use again X, we should use more training data
+% tmp = MarkovChain;
+% mc2 = tmp.initLeftRight(nStates, 1);% Initiate a finite Markovchain of nStates
+% HMM1 = HMM(mc2, pDgen); 
+% HMM1 = HMM1.init(X, xSize); % Initiate a HMM 
+% 
+% TrainedHMM = HMM1.train(X, xSize); % train it, here I use again X, we should use more training data
 toc
 fprintf('Fin training\n');
-full(TrainedHMM.StateGen.TransitionProb)
+trained.StateGen.TransitionProb
+% full(TrainedHMM.StateGen.TransitionProb)
 %% Now we want the more probable sequence of state
 pX = TrainedHMM.OutputDistr.prob(X_tmp);
 pX(pX==0)=eps;

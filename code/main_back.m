@@ -16,6 +16,15 @@ mu_2 = 3; sig_2 = 2;
 pDgen(1)=GaussD('Mean',[mu_1],'StDev',[sig_1]);
 pDgen(2)=GaussD('Mean',[mu_2],'StDev',[sig_2]);
 h = HMM(mc, pDgen);
+%simple test of forward/backward
+
+% c = [1, .1625, .8266, .0581];
+X = [-.2, 2.6, 1.3];
+[pX, tmp] = pDgen.prob(X);
+
+[alfaHat, c]=forward(mc,pX);
+% keyboard
+betaHat = backward(mc, pX, c)
 %%
 nS = 1000; nAttempts = 10;
 States = mc.rand(nS);
@@ -49,14 +58,7 @@ full(trainedhmm.StateGen.TransitionProb)
 
 % trainedhmm.StateGen.TransitionProb
 %%
-%Scale factor (from a forward algorithm)
-c = [1, .1625, .8266, .0581];
-X = [-.2, 2.6, 1.3];
-[pX, tmp] = pDgen.prob(X);
 
-% [alfaHat, c]=forward(mc,pX);
-% keyboard
-betaHat = backward(mc, pX, c);
 
 % for j=1:nStates
 %     for t = 1:T

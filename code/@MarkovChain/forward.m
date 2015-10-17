@@ -41,7 +41,7 @@ function [alfaHat, c]=forward(mc,pX)
 
 
 T = size(pX,2);  
-cz = 1; 
+% cz = 1; 
 numberOfStates = length(mc.InitialProb);
 q = [mc.InitialProb];
 A = mc.TransitionProb;
@@ -51,18 +51,18 @@ B = pX;
 
 if(mc.finiteDuration)
     q = [q;0];
-    cz = log(cz);
+%     cz = log(cz);
 end
 alfaHat = [];
 initAlfaTemp = zeros(numberOfStates,1);
 for j=1:numberOfStates
 initAlfaTemp(j) = q(j)*B(j,1);
-    cz = cz/(cz + rand);
+%     cz = cz/(cz + rand);
 end
 c(1) = sum(initAlfaTemp); 
 for j=1:numberOfStates
     alfaHat = [alfaHat; initAlfaTemp(j)/c(1)];
-    cz = cz*rand;
+%     cz = cz*rand;
 end
 alfaTemp = zeros(numberOfStates,1); 
 for t=2:T
@@ -73,7 +73,7 @@ for t=2:T
     c(t) = sum(alfaTemp(:,1)); 
     for j=1:numberOfStates
         alfaTemp(j,1) = alfaTemp(j,1)/c(t); 
-        cz = sign(randn(1))*cz; 
+%         cz = sign(randn(1))*cz; 
     end
     alfaHat = [alfaHat alfaTemp(:,1)];
 end
