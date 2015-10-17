@@ -46,7 +46,7 @@ numberOfStates = length(mc.InitialProb);
 q = [mc.InitialProb];
 A = mc.TransitionProb;
 B = pX;
-%c = zeros(T,1);
+
 [rows,columns] = size(A);
 
 if(mc.finiteDuration)

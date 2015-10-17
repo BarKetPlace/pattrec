@@ -1,6 +1,9 @@
 clear all
 close all
 clc
+
+tic
+
 nFiles = 4;
 S_=1;
 Fs_=1;
@@ -42,20 +45,30 @@ for k = 1:nFiles %Repet it as long as there is files
     xSize(k) = length(pitch_log);%Save the size of the data
     
 end
-%% Training of the HMM
+%%% Training of the HMM
 %  We assume that b_j(x) is a gaussian around the value of the offset
 
     for l = 1:length(tab_mean)
         pDgen(l) = GaussD('Mean',tab_mean(l),'StDev',1);
     end
+% save load_9files.mat
+toc
+%% Training
+fprintf('Debut training\n');
+tic
 nStates = length(pDgen);
 tmp = MarkovChain;
 mc2 = tmp.initLeftRight(nStates, 1);% Initiate a finite Markovchain of nStates
 HMM1 = HMM(mc2, pDgen); 
 HMM1 = HMM1.init(X, xSize); % Initiate a HMM 
 
-TrainedHMM = HMM1.train(X, xSize); % train it here I use again X, we should use more training data
+TrainedHMM = HMM1.train(X, xSize); % train it, here I use again X, we should use more training data
+toc
+fprintf('Fin training\n');
+full(TrainedHMM.StateGen.TransitionProb)
 %% Now we want the more probable sequence of state
-logpX = log(TrainedHMM.OutputDistr.prob(X) );
-[optS,logP]=TrainedHMM.viterbi(logpX(~isinf(logpX)))
+pX = TrainedHMM.OutputDistr.prob(X_tmp);
+pX(pX==0)=eps;
+logpX = log(pX);
+[optS,logP] = TrainedHMM.viterbi(X_tmp)
 
