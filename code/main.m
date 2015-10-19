@@ -22,7 +22,7 @@ else
     Fs=44200;
     recObj = audiorecorder(Fs, 16, 1);
     user = 'no';
-    i=4;
+    i=2;
     while strcmp(user, 'no')
         fprintf('Record in :: 3'); pause(1);
         fprintf('\b2'); pause(1);
