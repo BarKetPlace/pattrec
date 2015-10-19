@@ -3,7 +3,7 @@ close all
 clc
 
 
-nFiles = 2;
+nFiles = 9;
 S_=1;
 Fs_=1;
 path = '../songs/';
@@ -71,7 +71,7 @@ end
     ref = mean(tmp);
     Rounded_p = tmp - ref;
     pitch_log = pitch_log( ~isinf(pitch_log) ) - ref;
-    X_tmp = Rounded_p/s;
+    X_tmp = Rounded_p;
 
     if k == 1
         X = pitch_log; % Will be used as a training data
@@ -90,7 +90,7 @@ tab_mean = sorted_mean(1:5:end);
 %% Define the states
 xx=[];
 for l = 1:length(tab_mean)
-    pDgen(l) = GaussD('Mean',tab_mean(l),'StDev',0.4);
+    pDgen(l) = GaussD('Mean',tab_mean(l),'StDev',0.01);
      [f x] = ksdensity(pDgen(l).rand(100));
 %     xx = union(xx,x);
     plot(100*f,x); hold on;
@@ -99,11 +99,17 @@ end
 %% Training
 fprintf('Debut training\n');
 tic
-nStates = length(tab_mean);
-trained = MakeErgodicHMM(nStates,20, GaussD, X, xSize);
+nStates = length(tab_mean)+5;
+trained = MakeLeftRightHMM(nStates, GaussD, X, xSize);
 toc
 fprintf('Fin training\n');
-full(trained.StateGen.TransitionProb)
+full(trained.StateGen.TransitionProb);
 %% Now we want the more probable sequence of state
+[optS,logP] = trained.viterbi(X_tmp);
+%% Try the best sequence and see if it looks like the song
+for i = 1:length(optS)
+    res(i) = trained.OutputDistr(optS(i)).rand(1);
+    trained.OutputDistr(optS(i)).Mean
+end
+figure, plot(res);
 
-[optS,logP] = trained.viterbi(X_tmp)

@@ -154,7 +154,7 @@ Let us now calculate $E[X_{t}]$ and $Var[X_{t}]$.
 	
 	$Var[X_{t}]=E_{S}[Var_{X}[X|S]] + E_{S}[(E_{X}[X|S])^2] - E_{S}[E_{X}[X|S] ]^2$
 	
-	$Var[X_{t}]=[0.75 * \sigma_{1}^2 + 0.25*\sigma_{2}^2] + [0.75*\mu_{1}^2+0.25*\mu_{2}^2 - 0.75^2] = 1.75+0.25*9-0.75^2=3.4375$.
+	$Var[X_{t}]=[0.75 * \sigma_{1}^2 + 0.25*\sigma_{2}^2] + [0.75*\mu_{1}^2+0.25*\mu_{2}^2] - 0.75^2 = 1.75+0.25*9-0.75^2=3.4375$.
 \end{itemize}
 \pagebreak
 \subsection{Measures}
@@ -163,8 +163,8 @@ One point on a graph represent the mean (figure \ref{hmmrand:mean}) and the vari
 As we can see on the figures  the experimental values are close from the theoretical ones.
 \begin{figure}[!h]
 \centering
-    \subfloat[Variance of 10000 samples computed 20 times $E(Var(X)) \simeq 3.316$]{\includegraphics[scale = 0.25]{var_hmmrand}\label{hmmrand:var}}\\
-    \subfloat[Mean of 10000 samples computed 20 times $E(E(X)) \simeq 0.6981$]{\includegraphics[scale = 0.25]{mean_hmmrand}\label{hmmrand:mean}}
+    \subfloat[Variance of 10000 samples computed 20 times $E(Var(X)) \simeq 2.919$]{\includegraphics[scale = 0.37]{var_hmmrand}\label{hmmrand:var}}\\
+    \subfloat[Mean of 10000 samples computed 20 times $E(E(X)) \simeq 0.7963$]{\includegraphics[scale = 0.37]{mean_hmmrand}\label{hmmrand:mean}}
 \captionsetup{justification=centering}
     \caption{Validation of @HMM/rand\\\color{blue}{Blue : Plot of the 20 attempts}\\\color{red}{Red : Mean over the 20 attempts}}
 \end{figure}
@@ -172,33 +172,39 @@ As we can see on the figures  the experimental values are close from the theoret
 \section{HMM behavior 1/2}
 For this part, we changed the behavior of the @HMM/rand function, in order to get a vector from $b_{1}$ (not a scalar like the previous question). So here, each sample is a vector $x_{t} \sim N(\mu_j,\sigma_j^2)$ of size 500 (where j=1 or 2).
 
-The following figure shows the vector ploted for different values of t.
-\img{hmm_different_mean}{0.7}{Output data sample for two different means}
-\img{etude_hmmrand}{0.4}{{\color{blue}Blue : Sample at a time $t_1$. $\mu=-0.0065$ and $\sigma^2=0.985$}\\ {\color{red}Red: Sample at a time $t_2$. $\mu=2.9759$ and $\sigma^2=3.8953$}\\ The width lines represent the mean of the samples}\\
-\begin{pushright}{Observation}
-  It is easy to find out in which state the system was when the 500 samples were produced. On the figure \ref{etude_hmmrand} the samples have very different means and variances.
-\end{pushright}
+The following figure shows the 500 scalars from the process.
 
+% \img{hmm_different_mean}{0.7}{Output data sample for two different means}
+
+\img{etude_hmmrand}{0.4}{Plot of 500 contiguous $X_t$, the two states are defined as follow : $b_1(x) = N(0,1)$ and $b_2(x) = N(3,2)$}
+\begin{pushright}{Observation}
+After repeating the same code used to plot figure \ref{etude_hmmrand} several times, we confirmed the well behaving of the HMM. It is for likely to begin in state 1, and the system succeed in jumping into state 2, it will spend on this state than in state 1. When the means are different, it is pretty easy to find out the state sequence.
+\end{pushright}
+\pagebreak
 \section{HMM behavior 2/2}
-We now modify the mean of $b_{2}$, $\mu_{2}$ so that it is equal to $\mu_{1}$ : $\mu_{1}=\mu_{2}=0$. 
+We now modify the mean of $b_{2}$, $\mu_{2}$ so that it is equal to $\mu_{1}$ : $\mu_{1}=\mu_{2}=0$.
 
 We can easily notice a change with the previous HMM. On the figure below are represented a sample produced while the state was 1 in blue, and when the state was 2 in red :
 
-\img{hmm_same_mean}{0.7}{Output data samples for two equal means}
-\includegraphics[width=15cm]{Question_5_mean_bis.jpg}
-
-Here, we can see that both means are mingled so it seems impossible to determine whether the observation sample was produced under the state 1 or 2. Even if the standard deviations are different, it is not sufficient to spot the state at the moment the sample was produced. 
+\img{hmm_same_mean}{0.4}{Plot of 500 contiguous $X_t$, the two states are defined as follow : $b_1(x) = N(0,1)$ and $b_2(x) = N(0,2)$}
+% \includegraphics[width=15cm]{Question_5_mean_bis.jpg}
+\begin{pushright}{Observation}
+The sequence of state should be equivalent\footnote{ in term of probability of jumping from one state to another.} as the previous configuration. But only by considering the samples, when both means are equal, it is far more difficult to infer the state sequence. We can assume that the samples ``far'' from the mean are produced in state 2 (since the standard deviation is greater in state 2) but it is not a reliable assumption. 
+\end{pushright}
 
 \section{Finite-duration HMMs}
 The implementation works with finite duration Markov chain.\\
 We defined a transition matrix $A = \begin{pmatrix}
   0.6 & 0.3 & 0.1\\
   0.5 & 0.4 & 0.1\\
-\end{pmatrix}$ for a Markov chain, then a HMM based on this Markov chain, and the call to @HMM/rand returns the correct information. The difference is that we don't know how long the sequence will be since we don't know precisely when the system will enter the exit state. The system enter the exit state for T=20 which makes sense considering the probability.
+\end{pmatrix}$ for a Markov chain, then a HMM based on this Markov chain, and the call to @HMM/rand returns the correct information. The difference is that we don't know how long the sequence is since we don't know precisely when the system will jump in the exit state (state 3).
+Here are three examples of several state sequences generated with three calls to @HMM/rand :\\
+$S_1 =[ 1	2	2	1	1	2	1	2	2	1	1	2	1	1	1	1	1	2 3]$\\
+$S_2 = [1	1	1	2	1	1	1	2	2	2	1	2	2	2	1	1	1	1	1	1	2	1	2	1	1	1	1	1	2	1	2	1	1	1	1	1	1	2	2	2	1	1	1	2	2	1	1 3]$\\
+$S_3 = [1	2	1	2	1	1	2	2	1	2	2	1 3]$\\
 
 \section{Output vectors}
 The @HMM/rand function has been tested and works good when the Output Distributions returns both vectors and scalars.
-
 
 
 \end{document}
