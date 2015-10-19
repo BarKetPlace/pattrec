@@ -195,6 +195,9 @@ INPUT figures/etude_hmmrand.jpg
 INPUT ./figures/etude_hmmrand.jpg
 INPUT ./figures/etude_hmmrand.jpg
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm
+INPUT figures/hmm_same_mean.jpg
+INPUT ./figures/hmm_same_mean.jpg
+INPUT ./figures/hmm_same_mean.jpg
 INPUT figures/Question_5_mean_bis.jpg
 INPUT ./figures/Question_5_mean_bis.jpg
 INPUT ./figures/Question_5_mean_bis.jpg

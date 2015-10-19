@@ -3,7 +3,7 @@ close all
 clc
 
 
-nFiles = 2;
+nFiles = 9;
 S_=1;
 Fs_=1;
 path = '../songs/';
@@ -71,7 +71,7 @@ end
     ref = mean(tmp);
     Rounded_p = tmp - ref;
     pitch_log = pitch_log( ~isinf(pitch_log) ) - ref;
-    X_tmp = Rounded_p/s;
+    X_tmp = Rounded_p;
 
     if k == 1
         X = pitch_log; % Will be used as a training data
@@ -80,7 +80,7 @@ end
         X = [X pitch_log]; % Concatenate with the previous ones
         tab_mean = union(tab_mean,X_tmp); % Merge it (we do not want two times the same state)
     end
-    plot(X_tmp); hold on; drawnow;
+    plot(X_tmp, 'LineWidth',2); hold on; drawnow;
     xSize(k) = length(pitch_log);%Save the size of the data
     
 end
@@ -89,21 +89,30 @@ tab_mean = sorted_mean(1:5:end);
 
 %% Define the states
 xx=[];
+scale_factor = max(xSize); %scale the probability density
 for l = 1:length(tab_mean)
-    pDgen(l) = GaussD('Mean',tab_mean(l),'StDev',0.4);
+    pDgen(l) = GaussD('Mean',tab_mean(l),'StDev',0.01);
      [f x] = ksdensity(pDgen(l).rand(100));
 %     xx = union(xx,x);
-    plot(100*f,x); hold on;
+    plot(f/max(f)*scale_factor,x); hold on; % We plot that just to see which state will be represented inthe HMM
 
 end
 %% Training
 fprintf('Debut training\n');
 tic
-nStates = length(tab_mean);
-trained = MakeErgodicHMM(nStates,20, GaussD, X, xSize);
+nStates = length(tab_mean)+5;
+trained = MakeLeftRightHMM(nStates, GaussD, X, xSize);
 toc
 fprintf('Fin training\n');
-full(trained.StateGen.TransitionProb)
-%% Now we want the more probable sequence of state
+full(trained.StateGen.TransitionProb);
+%% Now we want the more probable sequence of states for a given vector of features
+[optS,logP] = trained.viterbi(X_tmp);
+%% Try the best sequence and see if the pitches look like the song
+for i = 1:length(optS)
+    res(i) = trained.OutputDistr(optS(i)).rand(1); %Draw a sample from the b_j(x) 
+    %for each state of the sequence of states provided by the Viterbi Algorithm
+end
 
-[optS,logP] = trained.viterbi(X_tmp)
+figure, plot(res);
+title(sprintf('Viterbi algorithm gave us a sequence of states i = (i1..iT)\nThis figure represents the vector of (x_t) where x_t follows N_i1'));
+ylabel('Pitch values');

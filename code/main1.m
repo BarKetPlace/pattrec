@@ -6,7 +6,7 @@
 
 clear all
 clc
-clf
+close all
 
 % Test DiscreteD rand
 A = DiscreteD([0.1,0.8,0.1]);
@@ -19,7 +19,7 @@ T = 1000;
 q = [0.75; 0.25];
 A = [0.99 0.01; 0.03 0.97];
 mc = MarkovChain(q,A);
-% S = mc.rand(T);
+S = mc.rand(T);
 
 % nb1 = sum( S == 1 );
 % nb2 = sum( S == 2 );
@@ -27,7 +27,8 @@ mc = MarkovChain(q,A);
 % f2 = nb2/T;
 %% Test HMM rand
 clear all
-nSamples = 100;
+T = 100;
+nSamples = 500;
 q = [0.75; 0.25];
 A = [0.99 0.01; 0.03 0.97];
 mc = MarkovChain(q,A);
@@ -36,20 +37,18 @@ pDgen(1)=GaussD('Mean',[0],'StDev',[1]);
 pDgen(2)=GaussD('Mean',[3],'StDev',[2]);
 
 h = HMM(mc, pDgen);
-[X,S] = h.rand(nSamples);
-i=1;
+figure(3), clf
 
-clf
-figure(3),
-i1 = 4;
-plot(1:500, X(i1,:), '-r'); hold on; plot(1:500, mean(X(i1,:))*zeros(500), '-r', 'LineWidth', 2); hold on;
-i2 = 5;
-plot(1:500, X(i2,:), '-b'); hold on; plot(1:500, mean(X(i2,:))*ones(500), '-b', 'LineWidth', 2);
-xlabel('Sample number'); ylabel('Sample Value'); title('Output of HMM for two different state');
-%legend(['State :: ' num2str(S(i1))],'Mu 1',['State :: ' num2str(S(i2))], 'Mu 2')
+X = h.rand(500);
+plot(X); hold on;
+
+
+xlabel('t = 1..500'); ylabel('X_t'); title('500 contiguous samples from the HMM specified in the book');
+
 %% Mean/var 
-nAtt = 1;
+nAtt = 20;
 Att = 1:nAtt;
+nSamples = 100;
 for i = Att
     [X,S] = h.rand(nSamples);
     v(i) =  var(X);

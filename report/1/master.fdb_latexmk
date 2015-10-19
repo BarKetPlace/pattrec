@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1443382290 "master.tex" "master.pdf" "master" 1443382291
+["pdflatex"] 1445264696 "master.tex" "master.pdf" "master" 1445264696
   "/etc/texmf/web2c/texmf.cnf" 1443038618 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/home/antoine/.texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1000.600pk" 1443168809 11524 6d53a49687ca51a9f925b1f512e44f99 ""
   "/home/antoine/.texmf-var/fonts/pk/ljfour/jknappen/ec/tcss1728.600pk" 1443364903 19000 b99d58881f3662d8d4ec85685aac8db4 ""
@@ -113,16 +113,17 @@
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1443077709 127797 fbd484c87fca878936e9b1c72fff96f4 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1443077091 741285 6344aa709197f208fb6df77c30012182 ""
   "figures/Question_5_mean_bis.jpg" 1443375186 84284 fcebc4d397533b969f4305f041954762 ""
-  "figures/etude_hmmrand.jpg" 1443368190 90609 8b7fd0c5e20c94578a38d5cb5e1efd8c ""
+  "figures/etude_hmmrand.jpg" 1445264461 62839 8abea44b24bd77406e541b9cc925d0c4 ""
+  "figures/hmm_same_mean.jpg" 1445263179 80038 617a9884af832be9f24756ec61f7f2b9 ""
   "figures/kth-logo.jpg" 1443168631 582814 524f4bf8df4760b5f70ace1b0ecf2505 ""
   "figures/mean_hmmrand.jpg" 1443363163 53035 a823ae83b39bb481b84276b80a4e7287 ""
   "figures/var_hmmrand.jpg" 1443363140 51555 bb71a0ba228a9520db45357aa203ad16 ""
-  "master.aux" 1443382291 3312 9e69d77080870848f71d0c037bbf857d ""
-  "master.out" 1443382291 469 4ad888f1e6e164d169fa6c225f25deb0 ""
-  "master.tex" 1443382289 8000 12a466e735d24f51a8ddd27be9e59f1a ""
+  "master.aux" 1445264696 3554 59b1f674ec33b06c8633858999d3743a ""
+  "master.out" 1445264696 469 4ad888f1e6e164d169fa6c225f25deb0 ""
+  "master.tex" 1445264692 8225 fa8143197cc34f0f6ba709fd5331c123 ""
   "title.tex" 1443375948 1019 34b10a128171e2e61113f65f675af664 ""
   (generated)
   "master.log"
+  "master.aux"
   "master.out"
   "master.pdf"
-  "master.aux"
