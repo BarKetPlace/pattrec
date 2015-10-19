@@ -22,7 +22,7 @@ else
     Fs=44200;
     recObj = audiorecorder(Fs, 16, 1);
     user = 'no';
-    i=0;
+    i=4;
     while strcmp(user, 'no')
         fprintf('Record in :: 3'); pause(1);
         fprintf('\b2'); pause(1);
@@ -110,7 +110,7 @@ i=i+1;
 end
 
 %% New try
-sounds = 
+% sounds = 
 Sfreq
 [features_vector, ref] = find_offset( unique(m_,'stable'));
 figure, plot(features_vector); hold on;
