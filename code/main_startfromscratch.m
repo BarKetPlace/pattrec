@@ -85,26 +85,31 @@ end
     
 end
 sorted_mean = sort(tab_mean);
-tab_mean = sorted_mean(1:5:end);
+tab_mean = sorted_mean(1:1:end);
 
 %% Define the states
-xx=[];
-scale_factor = max(xSize); %scale the probability density
-for l = 1:length(tab_mean)
-    pDgen(l) = GaussD('Mean',tab_mean(l),'StDev',0.01);
-     [f x] = ksdensity(pDgen(l).rand(100));
-%     xx = union(xx,x);
-    plot(f/max(f)*scale_factor,x); hold on; % We plot that just to see which state will be represented inthe HMM
-
-end
+% xx=[];
+% scale_factor = max(xSize); %scale the probability density
+% for l = 1:length(tab_mean)
+%     pDgen(l) = GaussD('Mean',tab_mean(l),'StDev',0.01);
+%      [f x] = ksdensity(pDgen(l).rand(100));
+% %     xx = union(xx,x);
+%     plot(f/max(f)*scale_factor,x); hold on; % We plot that just to see which state will be represented inthe HMM
+% end
 %% Training
 fprintf('Debut training\n');
 tic
-nStates = length(tab_mean)+5;
+nStates = length(tab_mean);
 trained = MakeLeftRightHMM(nStates, GaussD, X, xSize);
 toc
 fprintf('Fin training\n');
-full(trained.StateGen.TransitionProb);
+%Gaussians
+figure,
+for i = 1:nStates
+    [f x] = normpdf
+    plot(trained.OutputDistr(i).Mean*[1 1], [0 1]); hold on;
+end
+
 %% Now we want the more probable sequence of states for a given vector of features
 [optS,logP] = trained.viterbi(X_tmp);
 %% Try the best sequence and see if the pitches look like the song
