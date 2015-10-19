@@ -104,6 +104,6 @@ trained = MakeErgodicHMM(nStates,20, GaussD, X, xSize);
 toc
 fprintf('Fin training\n');
 full(trained.StateGen.TransitionProb)
-% %% Now we want the more probable sequence of state
-% pX = trained.OutputDistr.prob(X_tmp);
-% [optS,logP] = trained.viterbi(X_tmp)
+%% Now we want the more probable sequence of state
+
+[optS,logP] = trained.viterbi(X_tmp)
