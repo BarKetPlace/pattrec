@@ -125,7 +125,7 @@ ylabel('Pitch values');
 
 %% Store HMM for decision function
 
-trained1=trained;
+trained=trained1;
 X_viterbi_1 = X_viterbi;
 save('Melody1', 'trained', 'X_viterbi');
 
