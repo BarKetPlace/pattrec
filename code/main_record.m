@@ -11,7 +11,7 @@ close all
 path = '../songs/';% Recording folder
 mute = 1; % Listen to the recording or not
 record_time = 8;% How long do you want to record? (in seconds)
-starting_point = 9; %The first saved file will have this number
+starting_point = 10; %The first saved file will have this number
 
 Fs=44200;
 recObj = audiorecorder(Fs, 16, 1);
