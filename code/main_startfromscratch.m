@@ -2,12 +2,12 @@ clear all
 close all
 clc
 
-num_melody = 1;
+num_melody = 2;
 
-nFiles = 15;
+nFiles = 5;
 S_=1;
 Fs_=1;
-path = '../songs/marseillaise/';
+path = '../songs/auclairdelalune/';
 filename = int2str(0:nFiles-1);
 figure,
 %% Load the different files
@@ -135,7 +135,7 @@ ylabel('Pitch values');
 
 trained1=trained;
 X_viterbi_1 = X_viterbi;
-save('Melody1', 'trained', 'X_viterbi');
+save('Melody2', 'trained', 'X_viterbi');
 
 
 

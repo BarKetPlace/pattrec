@@ -1,10 +1,10 @@
 clear all
 clc
 
-nbMelody = 1;
+nbMelody = 2;
 
-path = '../songs/';
-filename = 'melody_3';
+path = '../songs/marseillaise/';
+filename = '17';
 
 [S Fs] = audioread(strcat(path, filename, '.wav'));
 
@@ -24,14 +24,16 @@ nbFrames=size(frIsequence, 2);
 frIsequence = clean_low_intensity(frIsequence, nbFrames, Fs);
 x = frIsequence(1,:);
 
-if size(x,1)==1
-    x=x';
-end
+% if size(x,1)==1
+%     x=x';
+% end
 
 
 for i = 1:nbMelody
     load(strcat('Melody', int2str(i)));
     
+    hmm(i)=trained;
     
 end
 
+logP = logprob(hmm,x);
