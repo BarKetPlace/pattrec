@@ -4,15 +4,15 @@ clc
 
 num_melody = 1;
 
-nFiles = 9;
+nFiles = 15;
 S_=1;
 Fs_=1;
-path = '../songs/';
+path = '../songs/marseillaise/';
 filename = int2str(0:nFiles-1);
 figure,
 %% Load the different files
 for k = 1:nFiles %Repet it as long as there is files
-    [S Fs] = audioread(strcat(path, [int2str(k-1) '.wav']));
+    [S Fs] = audioread(strcat(path, sprintf('%02d.wav',k)));
     %     S = S_(i);
     %     Fs = Fs_(i);
     
@@ -91,8 +91,8 @@ for k = 1:nFiles %Repet it as long as there is files
     
 end
 sorted_mean = sort(tab_mean);
-tab_mean = sorted_mean(1:5:end);
 
+tab_mean = sorted_mean(1:5:end);
 %% Define the states
 % xx=[];
 % scale_factor = max(xSize); %scale the probability density
@@ -106,11 +106,19 @@ tab_mean = sorted_mean(1:5:end);
 %% Training
 fprintf('Debut training\n');
 tic
-nStates = length(tab_mean)+5;
+nStates = length(tab_mean);
 trained = MakeLeftRightHMM(nStates, GaussD, X, xSize);
 toc
 fprintf('Fin training\n');
-full(trained.StateGen.TransitionProb);
+
+%Gaussians
+figure, title('Distribution of the states');
+for i = 1:nStates
+    plot(trained.OutputDistr(i).Mean*[1 1], [0 1]); hold on;
+end
+
+%% Probability p(x | lambda)
+trained.logprob(X_tmp)
 %% Now we want the most probable sequence of states for a given vector of features
 [optS,logP] = trained.viterbi(X_tmp);
 %% Try the best sequence and see if the pitches look like the song
