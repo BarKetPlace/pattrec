@@ -120,7 +120,6 @@ end
 %% Probability p(x | lambda)
 trained.logprob(X_tmp)
 %% Now we want the most probable sequence of states for a given vector of features
-
 [optS,logP] = trained.viterbi(X_tmp);
 %% Try the best sequence and see if the pitches look like the song
 for i = 1:length(optS)
