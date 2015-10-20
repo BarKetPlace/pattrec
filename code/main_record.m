@@ -8,14 +8,14 @@ clear all
 clc
 close all
 
-path = '../songs/';% Recording folder
+path = '../songs/concerninghobbits';% Recording folder
 mute = 1; % Listen to the recording or not
 record_time = 13;% How long do you want to record? (in seconds)
 starting_point = 0; %The first saved file will have this number
 
 Fs=44200;
 recObj = audiorecorder(Fs, 16, 1);
-user = 'no';
+user = 'yes';
 i=starting_point;
 while strcmp(user, 'yes')
     recObj = audiorecorder(Fs, 16, 1);
