@@ -44,7 +44,7 @@ plot(t1,frIsequence1(1,:));
 hold on
 plot(t2,frIsequence2(1,:),'r');
 hold on
-plot(t3,frIsequence3(1,:),'color','k','LineWidth',1);
+plot(t3,frIsequence3(1,:),'color','black','LineWidth','0.8');
 title('Pitch');
 xlabel('time (s)');
 ylabel('pitch (Hz)');
