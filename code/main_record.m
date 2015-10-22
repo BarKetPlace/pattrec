@@ -8,10 +8,10 @@ clear all
 clc
 close all
 
-path = '../songs/auclairdelalune/';% Recording folder
+path = '../songs/igetaround/';% Recording folder
 mute = 1; % Listen to the recording or not
-record_time = 8;% How long do you want to record? (in seconds)
-starting_point = 0; %The first saved file will have this number
+record_time = 10;% How long do you want to record? (in seconds)
+starting_point = 7; %The first saved file will have this number
 
 Fs=44200;
 recObj = audiorecorder(Fs, 16, 1);
@@ -30,7 +30,8 @@ while strcmp(user, 'yes')
     if ~mute
         recObj.play;
     end
-    audiowrite(strcat(path,[int2str(i) '.wav']), S, Fs);
+    audiowrite(strcat(path,[sprintf('%0.2i',i), '.wav']), S, Fs);
+    fprintf('You just recorded %i file in a row\n', i+1);
     user = input('You want to record another one ? yes or no :: ', 's');
     i=i+1;
 end

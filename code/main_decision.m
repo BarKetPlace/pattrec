@@ -1,10 +1,10 @@
 clear all
 clc
 
-nbMelody = 2;
+nbMelody = 3;
 
-path = '../songs/marseillaise/';
-filename = '17';
+path = '../songs/igetaround/';
+filename = '07';
 
 [S Fs] = audioread(strcat(path, filename, '.wav'));
 
