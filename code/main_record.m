@@ -8,10 +8,10 @@ clear all
 clc
 close all
 
-path = '../songs/igetaround/';% Recording folder
+path = '../songs/schubert/';% Recording folder
 mute = 1; % Listen to the recording or not
-record_time = 10;% How long do you want to record? (in seconds)
-starting_point = 7; %The first saved file will have this number
+record_time = 11;% How long do you want to record? (in seconds)
+starting_point = 2; %The first saved file will have this number
 
 Fs=44200;
 recObj = audiorecorder(Fs, 16, 1);

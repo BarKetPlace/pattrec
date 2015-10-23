@@ -1,0 +1,128 @@
+\documentclass[a4paper]{report}
+
+\usepackage[utf8]{inputenc} %Accent
+%\usepackage{libertine} %Font
+\usepackage[english, francais]{babel} %langue
+
+\usepackage{graphicx} %Include fig
+\usepackage{caption} %center the caption
+\usepackage{subfig} %Include subfig
+\usepackage{lastpage} %ref LastPage 
+\usepackage{fancyhdr} % headers,footers
+\usepackage{multicol} % minipages
+\usepackage{textcomp} 
+\usepackage{lscape}   %Format paysage
+\usepackage{fancybox} %Image arrière plan
+\usepackage{amsmath} %\mathbb, \mathit...
+\usepackage{amssymb} 
+\usepackage{color} %couleurs
+\usepackage{float}
+\usepackage[hidelinks]{hyperref} %Liens intradoc et url
+\usepackage{titlepic}
+
+%\usepackage{algorithm}
+%\usepackage{algorithmic} %Algo en pseudo code
+%\usepackage{algorithm2e} %for psuedo code
+
+%\usepackage{boxedminipage} %Surligner
+
+%\newcounter{apppage} % Annexes
+
+%Dossier contenant les figures
+\graphicspath{{figures/}}
+
+%Mise en page
+\voffset -1.5 cm
+\textheight 24.3 cm
+\topmargin 0 cm
+\headheight 0 cm
+%\headsep 0.6 cm
+\textwidth 16.5 cm
+\evensidemargin 0 cm
+\marginparsep 0 cm
+\marginparwidth 0 cm
+\oddsidemargin -.5 cm
+
+%Titre
+\title{Pattern recognition\\Report\\Assignment n°1}
+\author{Audrey Brouard \and Antoine Honoré}
+
+
+
+%Type de numérotation des sections & sous-sections
+\renewcommand{\thesection}{\Roman{section}}
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+
+%\renewcommand\thesubfigure{(\alph{subfigure})}
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+\newcommand{\hsp}{\hspace{20pt}}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+%email
+\newcommand{\email}[1]{\href{mailto:#1}{\color{blue} \textsf{#1}}}
+
+%Bibliography
+\bibliographystyle{apalike}
+
+%Environnement insersion image
+\newcommand{\img}[3]{\begin{figure}[!h] \centering \includegraphics[scale=#2]{#1}\captionsetup{justification=centering} \caption{#3} \label{#1} \end{figure}}
+  % commande \img{nom image}{scale}{legende}
+
+%TODO
+\newcommand{\todo}[1]{{ \Large \textbf{ \colorbox{yellow}{\color{blue} TODO:}}~#1}}
+
+%pushright
+\newenvironment{pushright}[1]{\textbf{#1}
+\begin{itemize}\item[\hspace{12pt}]}{\end{itemize}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{fancy}  % Activation en-tête et pied de page
+
+%En-tête
+\fancyhead[L]{Audrey Brouard \& Antoine Honoré - Pattern recognition - Assignment n°4}
+%\fancyhead[C]{}
+%\fancyhead[R]{}
+% Pied de page
+\newcommand{\width}{3cm}
+%\fancyfoot[L]{ \includegraphics[width=\width]{logo-gipsa} }
+\fancyfoot[C]{ \thepage~/~\pageref{LastPage} }
+%\fancyfoot[R]{ \includegraphics[width=\width]{logo-phelma} }
+
+\titlepic{\includegraphics[scale=0.6]{kth-logo}}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%% TITLE %%%%%%%%%%%%%%%%
+\input{title.tex}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Song Database}
+
+Fir this assignment we have constituted a song database on which try and train our HMM.
+As our feature extractor is based on the pitch of the note, we have choosen to hum the songs of the database. Also, our feature extractor uses an offset of semitons so we have tried to focus on songs which have a pretty welle defined melody. The songs we have chosen are :
+
+\begin {itemize}
+\item Highway to hell - ACDC
+\item House of the rising sun - Animals
+\item Satisfaction - Rolling stones
+\item California Dreaming - The Mamas and the Papas
+\item I get around - Beach Boys
+\item Hit the road jack - Ray Charles
+\item Horse with no name - America
+\item Smoke on the water - Deep purple
+\item Trio n°2 in E-flat major - Schubert
+\end{itemize}
+
+Each one of these songs have been recorded by both member of the project groupe, 8 times each. The recordings were done on a computer, in a quiet environment. We have tried to vary significantly the way we were humming the songs in the different recordings so that our HMM is more robust. For example, we have transposed the song in different ways along the recordings because we have built our HMM to be independent of this parameter.
+
+As we are one male and one female in the project group, we assume that our HMM should be able to recognize a song sang by both a man and a woman.
+
+
+\end{document}
