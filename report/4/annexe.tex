@@ -1,0 +1,167 @@
+\chapter{Algorithmes} \label{algos}
+
+\section{Algorithme ABC avec rejet}\label{algo_rejet}
+Avec Matlab on gagne énormement de temps en vectorisant nos calculs. C'est donc ce que nous avons fait pour cet algorithme. On se fixe un $\epsilon$ ou un quantile que nous appellerons $\eta$.
+
+
+
+% \begin{itemize}
+%   \item Générer $N_{prop}$ paramètres $\theta_i$ tirés selon le prior (typiquement $N_{prop} = 10^6$).
+%   \item Simuler $N_{prop}$ échantillons $y_i$ à partir du modèle génératif $p(y_i~|~\theta_i)$.
+%   \item Conserver les $\theta_i$ tels que $\Delta = d(S(y_i), S(y_{obs})) \leq \epsilon$
+%   \textbf{ou} trier les $\theta_i$ en fonction de $\Delta$ et conserver les $N_{prop}\eta$ meilleurs.
+% \end{itemize}
+
+% \begin{itemize}
+%   \item Tant que le nombre de paramètre valable est inférieur à N (typiquement N = 1000).
+%  \begin{itemize}
+%     \item Tirer $\theta_i$ selon le prior.
+%     \item Générer $y_i \sim p(y~|~\theta_i)$
+%     \item Calculer $S(y_i)$ les statistiques empiriques de échantillon.
+%     \item Si $\Delta = d(S(y_i), S(y_{obs})) \leq \epsilon$ on stocke $\theta_i$, sinon on le rejette.
+%   \end{itemize}
+%   \item Fin tant que
+% \end{itemize}
+L'utilisation d'un quantile est plus appropriée car on a priori aucune idée sur la valeur des distances entre les échantillons.\\
+Finalement, la suite $(\theta_i)$ des paramètres conservés est un tirage aléatoire selon la loi a posteriori. Il est évident que la précision de la loi et le temps de calcul dépend du nombre de propositions $N_{prop}$ initialement effectuées. Pour plus de détail sur cet algorithme, je vous renvoie vers l'article 
+
+
+\section{Algorithme ABC à Population de Monte Carlo}\label{algo_pmc}
+Cet algorithme réutilise le précédent mais avec un nombre de proposition beaucoup plus faible (typiquement $N_{prop} = 50 000$). On doit également fixer un nombre T qui sera le nombre d'itérations; Une suite décroissante $(\epsilon_t)_{t\in[1, T]}$; un nombre N qui est la taille de la population de Monte Carlo.\\
+
+\begin{algorithm}
+\caption{Algorithme ABC à population de Monte-Carlo}
+     \SetAlgoLined
+     \KwData{$N_{prop}$, $(\epsilon_t)$, N, T, $\pi(\theta)$}
+     t = 1; Algorithme ABC avec rejet de la partie \ref{algo_rejet}: $N_{prop} = 50000$ et $\eta = \frac{N}{N_{prop}}$\;
+     
+     \For{$t \in [2,T]$}{
+       \While{Tant que l'on a pas conservé N paramètres}{
+         Tirer $\theta^*_i$ parmi le vecteur $\theta^{t-1}_i$  (avec une probabilité $\omega_i^{t-1}$)\;
+         Tirer un nouveau paramètre $\theta_i^t$ selon une loi normale centrée sur $\theta^*_i$ et de variance $\tau_{t-1}^2$\;
+         Générer un nouvel échantillon $y_i \sim p(y~|~\theta_i^t)$\;
+         Calculer $\Delta = d(S(y_i), S(y_{obs}))$\;
+         Conserver $\theta_i^t~ssi~\Delta \leq \epsilon_t$\;
+         }
+         Mise à jour de $\omega_i^t$, $\tau^2_t$ et $\epsilon_{t+1}$\;
+     }
+\end{algorithm}
+
+
+% \begin{itemize}
+% \item Première étape: t = 1 
+%   \begin{itemize}
+%   \item Algorithme ABC avec rejet de la partie \ref{algo_rejet}: $N_{prop} = 50000$ et $\eta = \frac{N}{N_{prop}}$
+%   \end{itemize}
+% \item Seconde étape: Pour $t \in [2,T] $
+%   \begin{itemize}
+%   \item  Tant que l'on a pas conservé N paramètres
+%     \begin{itemize}
+%     \item Tirer $\theta^*_i$ parmi le vecteur $\theta^{t-1}_i$  (avec une probabilité $\omega_i^{t-1}$)
+%     \item  Tirer un nouveau paramètre $\theta_i^t$ selon une loi normale centrée sur $\theta^*_i$ et de variance $\tau_{t-1}^2$.
+%     \item Générer un nouvel échantillon $y_i \sim p(y~|~\theta_i^t)$.
+%     \item Calculer $\Delta = d(S(y_i), S(y_{obs}))$
+%     \item  Conserver $\theta_i^t~ssi~\Delta \leq \epsilon_t$
+%     \end{itemize}
+%   \item Fin Tant que
+%   \item  Mise à jour de $\omega_i^t$, $\tau^2_t$ et $\epsilon_{t+1}$
+%   \end{itemize}
+% \item Fin pour
+% \end{itemize}
+Avec : $\tau^2_t = 2var(\theta_1^t \dots \theta_N^t)$, $\epsilon_{t+1} = \alpha\epsilon_t$, et pour la mise à jour des poids on utilise la formule : 
+
+\[ \omega^{t+1}_i = \frac{1}{ \sum_{j=1}^{NbPop}\omega_{j}^t\Phi(\frac{\theta_i^t - \theta_j^{t+1}}{\tau^2_t})} \]
+Cet algorithme est plus amplement détaillé dans l'article de \cite{0805.2256v9}. Je vous renvoie vers ce dernier pour toutes les démonstrations.
+
+\chapter{Correction a posteriori} \label{correction}
+La méthode est détaillée dans l'article \cite{blum:tel-00766196} mais on peut la résumé de la manière suivante dans le cas qui nous intéresse.\\
+Lorsque l'on trace $\theta_i^t~vs~S(y_i)$ où $y_i \sim p(y~|~\theta_i)$ on observe une forte corrélation comme on peut le voir sur la figure \ref{nuages}. 
+
+\begin{enumerate}
+  % \item Régression linéaire\\
+  % $\forall k \in [1, 2],~\forall i \in [1, NbPop]~\theta_i^{(k)} = a_{k1}S^{(1)}(X_i) + a_{k2}S^{(2)}(X_i) + b_k + \epsilon_k$.\\ Le but est d'estimer $a_{k1}$, $a_{k2} et (b_k)$  les coefficients de la droite qui correspond le mieux au nuage de points.\\
+  
+  \item Correction du nuage
+
+\newcommand{\design}{\begin{pmatrix}
+      1 & S^{(1)}(X_1) & S^{(2)}(X_1)\\
+      \vdots & \vdots & \vdots\\
+      1 & S^{(1)}(X_n) & S^{(2)}(X_n)\\
+    \end{pmatrix}}
+\newcommand{\param}{\begin{pmatrix}
+      \theta_1\\
+      \vdots\\
+      \theta_n\\
+    \end{pmatrix}}
+\newcommand{\epsmat}{\begin{pmatrix} 
+  \epsilon_1\\
+  \vdots\\
+  \epsilon_n
+\end{pmatrix}}
+\newcommand{\coef}{\begin{pmatrix}
+    b\\
+    a_1\\
+    a_2\\
+  \end{pmatrix}
+}
+On cherche $(b, a_1, a_2) \in \mathbb{R}^3$ tel que $\forall i \in [1, NbPop]~\theta_i = a_1S^{(1)}(X_i) + a_2S^{(2)}(X_i) +b$\\
+On cherche donc $\coef \in \mathbb{R}^3$ tel que $\param =  \design \coef$ \\
+On approche le résultat à l'aide de la méthode des moindres carrés.
+
+Et on obtient $\param = \design \coef + \epsmat.$
+
+La correction s'effectue ensuite de la manière suivante : $\param_{corr} = \param + \epsmat$ \\
+\end{enumerate}
+
+\begin{figure}[!h]
+\centering
+
+  \subfloat[Nuage de points pour le paramètre $\mu$]{ \includegraphics[scale = 0.2]{nuage/mu_nuage}}\hspace{0.2cm}
+  \subfloat[Nuage de points pour le paramètre $\sigma^2$]{ \includegraphics[scale = 0.2]{nuage/sig2_nuage}} \\
+\centering
+  \subfloat[Nuage de points projeté sur le plan ($\mu_{obs}, \mu).$]{ \includegraphics[scale = 0.2]{nuage/mu_nuage_proj}} \hspace{0.2cm}
+  \subfloat[Nuage de points projeté sur le plan ($\sigma^2_{obs}, \sigma^2).$]{ \includegraphics[scale = 0.2]{nuage/sig2_nuage_proj}}
+
+\caption{En bleu le nuage de points, en rouge le résultat de la régression linéaire par méthode des moindres carrés.}
+\label{nuages}
+\end{figure}
+
+\chapter{Validation des cas simples grâce à l'échantillonneur de Gibbs}
+
+Nous allons ici détailler le fonctionnement de l'échantillonneur de Gibbs, par définition, il est fait pour déterminer un tirage selon une certaine loi.\\
+Premièrement, remarquons que cet échantillonneur ne s'inscrit pas dans le cadre des méthodes ABC. Pour utiliser l'échantillonneur de Gibbs,  il faut connaitre les lois des paramètres sachant les autres paramètres. Ces lois sont inconnues dans le cas général,  mais on les connait dans le cas où $\frac{\kappa}{\lambda}$ est grand (voir section \ref{difficulte}). L'échantillonneur de Gibbs va donc nous servir à confirmer nos résultats dans les cas les plus favorables.
+
+\paragraph{\Large Mise en œuvre\\}
+Etant donné un échantillon y et ses statistiques S(y), nous cherchons à générer une famille $(\theta^1 \dots \theta^N)$ (typiquement N=1000) où chaque $\theta$ suit la loi $p(\theta~|~y)$.\\
+L'échantillonnage de Gibbs est un processus itératif qui consiste à utiliser l'itération précédente pour générer un paramètre. Autrement dit, on génère la composante j $\theta^{i+1}_j$ en la tirant selon la loi $p(\theta_j~|~\theta^i_m)$ avec $m \ne j$. On construit ainsi une chaine de Markov dont la distribution stationnaire est la loi cible.
+
+On initialise l'algorithme avec des valeurs aléatoires, i.e $\theta^1 = \begin{pmatrix} \hat{\kappa_1}\\ \hat{\lambda_1} \end{pmatrix}$. On effectue ensuite $N_{iter}$ tirages (typiquement 50000) de la manière suivante:
+\[\theta^i_1 \sim p(\theta_2~|~\theta_1^{i-1}, y)\]\[\theta^i_2 \sim p(\theta_1~|~\theta_2^{i-1}, y)\]
+
+On se retrouve avec une suite $(\theta^1 \dots \theta^{N_{iter}})$ dont les premières valeurs ne suivent pas forcément la loi cible car la chaine de Markov n'a pas encore convergée . On peut donc éliminer ces valeurs et ne conserver par exemple que 50\% des $N_{iter}$ tirages. C'est ce qu'on appelle le burn in (on brûle les mauvais échantillons.
+% Les lois théoriques m'ont été fournies par mon tuteur et j'ai pu ensuite assez facilement comparer les résultats.
+\begin{center}
+% \img{burn_in}{0.3}{Ici $N_{iter}= 50000$. On trace mean($\theta^{i-10} \dots \theta^{i-1}$). On voit une petite perturbation au début, mais l'algorithme converge très rapidement.}
+\end{center}
+
+
+
+\chapter{Limitation du prior par la précision machine}
+Pour effectué ce tracé, on a généré un échantillon de référence  $y_{obs} \sim p(y~|~\theta_{obs})$. On a ensuite généré 100 000 valeurs de $\theta$ et on a simulé 100 000 échantillons. On a finalement calculé la distance entre l'échantillon initial et ces échantillons et a tracé la distance en fonction de $\kappa$ en x et $\lambda$ en y.
+On pose $\rho$ = d(S($\theta$), S($\theta_{obs})$.
+
+\begin{figure}[!h]
+\centering
+\newcommand{\scale}{0.5}
+\subfloat[en z:$\rho$]{\label{precision:dec}\includegraphics[scale = \scale]{calcul_rho}}
+\subfloat[en z:$log_{10}(\rho)$]{\label{precision:log}\includegraphics[scale = \scale]{calcul_logrho}}
+\caption{Précision machine}
+\label{precision}
+\end{figure}
+
+En plus d'observer un plafond après $\lambda = 40$, on observe une augmentation lorsque $\lambda \leq 2$. Ces deux phénomènes sont des conséquences directes de la précision machine.
+
+
+%%% Local Variables:
+%%% TeX-master: "rapport"
+%%% End:

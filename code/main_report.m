@@ -44,12 +44,12 @@ plot(t1,frIsequence1(1,:));
 hold on
 plot(t2,frIsequence2(1,:),'r');
 hold on
-plot(t3,frIsequence3(1,:),'k');
+plot(t3,frIsequence3(1,:),'color','k','LineWidth',1);
 title('Pitch');
 xlabel('time (s)');
 ylabel('pitch (Hz)');
 legend('Melody1','Melody2','Melody3');
-axis([0 8 100 300]);
+% axis([0 8 100 300]);
 
 subplot(2,1,2)
 plot(t1,frIsequence1(3,:));

@@ -2,12 +2,12 @@ clear all
 close all
 clc
 
-% num_melody = 1;
+num_melody = 3;
 
-nFiles = 7;
+nFiles = 6;
 S_=1;
 Fs_=1;
-path = '../songs/concerninghobbits/';
+path = '../songs/igetaround/';
 filename = int2str(0:nFiles-1);
 %Used later
 tab_mean = [];
@@ -145,7 +145,7 @@ ylabel('Pitch values');
 
 trained1=trained;
 X_viterbi_1 = X_viterbi;
-save('Melody1', 'trained', 'X_viterbi');
+save('Melody3', 'trained', 'X_viterbi');
 
 
 
