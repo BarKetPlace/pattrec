@@ -1,4 +1,4 @@
-function [] = display_(S,Fs,scaling_f,mute)
+%function [] = display_(S,Fs,scaling_f,mute)
 %display_ 
 % subplot(2,1) ::   upper plot is the spectrogram(frequency vs time)
 %                   lower plot is the temporal signal (with a player)
@@ -13,6 +13,7 @@ function [] = display_(S,Fs,scaling_f,mute)
 % Audrey Brouard
 %----------------------------------------------------
 
+function [] = display_(S,Fs,scaling_f,mute)
 nbSamples = sum(size(S))-1;
 top = max(S);
 bottom = min(S);

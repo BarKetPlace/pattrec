@@ -1,3 +1,10 @@
+%----------------------------------------------------
+%Code Authors:
+% Antoine Honoré
+% Audrey Brouard
+%----------------------------------------------------
+
+
 clear all
 close all
 clc
@@ -25,7 +32,7 @@ for k = 1:nFiles %Repet it as long as there is files
     nbSamples = sum(size(S))-1;
     
     %Extract features
-    window_size = 0.08;
+    window_size = 0;
     if window_size
         frIsequence = GetMusicFeatures(S, Fs, window_size);
     else

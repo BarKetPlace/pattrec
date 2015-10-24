@@ -8,10 +8,10 @@ clear all
 clc
 close all
 
-path = '../songs/schubert/';% Recording folder
+path = '../songs/auclairdelalune/';% Recording folder
 mute = 1; % Listen to the recording or not
-record_time = 11;% How long do you want to record? (in seconds)
-starting_point = 2; %The first saved file will have this number
+record_time = 8;% How long do you want to record? (in seconds)
+starting_point = 11; %The first saved file will have this number
 
 Fs=44200;
 recObj = audiorecorder(Fs, 16, 1);
@@ -22,7 +22,7 @@ while strcmp(user, 'yes')
     fprintf('Record in :: 3'); pause(1);
     fprintf('\b2'); pause(1);
     fprintf('\b1'); pause(1);
-    fprintf('\b\b\b\b\b\b\b\b\b\b\b\b\b\bStart speaking!\n')
+    fprintf('\b\b\b\b\b\b\b\b\b\b\b\b\b\bStart speaking!\n');
     recordblocking(recObj, record_time);
 
     S = getaudiodata(recObj);
@@ -32,7 +32,7 @@ while strcmp(user, 'yes')
     end
 
     audiowrite(strcat(path,[sprintf('%0.2i',i), '.wav']), S, Fs);
-    fprintf('You just recorded %i file in a row\n', i+1);
+    fprintf('You just saved %s%i.wav \n',path, i);
     user = input('You want to record another one ? yes or no :: ', 's');
     i=i+1;
 end
