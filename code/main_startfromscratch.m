@@ -2,13 +2,16 @@ clear all
 close all
 clc
 
-num_melody = 1;
+% num_melody = 1;
 
-nFiles = 15;
+nFiles = 7;
 S_=1;
 Fs_=1;
-path = '../songs/marseillaise/';
+path = '../songs/concerninghobbits/';
 filename = int2str(0:nFiles-1);
+%Used later
+tab_mean = [];
+X=[];
 figure,
 %% Load the different files
 for k = 1:nFiles %Repet it as long as there is files
@@ -29,8 +32,19 @@ for k = 1:nFiles %Repet it as long as there is files
         frIsequence = GetMusicFeatures(S, Fs);
     end
     nbFrames=size(frIsequence, 2);
-    frIsequence = clean_low_intensity(frIsequence, nbFrames, Fs);
-    x = frIsequence(1,:);
+    % Clean low intensity
+    max_intensity = max(frIsequence(3,:));
+    threshold = 0.2;%We assume that sounds with intensity >= threshold*max_intensity contains information
+    % Perform a threshold on the intensity, the pitch of the frame with an ...
+    %   intensity >= alpha*max_intensity are copied, the other pitch are
+    %   discarded(put to 0)
+
+    pitch = frIsequence(1,:);
+     irrelevant = frIsequence(3,:)<=threshold*max_intensity;
+%      pitch(irrelevant) = 0;
+     %Correct the very strong noises
+    pitch(pitch>=900) = 0;
+    x = pitch;
     
     m_ = zeros(1,nbFrames); %Will receive the result
     flag=0; %The flag = 1 when the x(1,i) ~=0 (the intensity was reasonable, see previous section)
@@ -74,21 +88,17 @@ for k = 1:nFiles %Repet it as long as there is files
     pitch_log = pitch_log( ~isinf(pitch_log) ) - ref;
     X_tmp = Rounded_p;
     
-    if k == 1
-        X = pitch_log; % Will be used as a training data
-        tab_mean = X_tmp; %Will be used to define the states
-    elseif k<nFiles
+    if k<nFiles
         X = [X pitch_log]; % Concatenate with the previous ones
         tab_mean = union(tab_mean,X_tmp); % Merge it (we do not want two times the same state)
+        xSize(k) = length(pitch_log);
     elseif k == nFiles
         X_viterbi = X_tmp;
     
     end
-    plot(X_tmp, 'LineWidth',2); hold on; drawnow;
-    if k~=nFiles
-        xSize(k) = length(pitch_log);%Save the size of the data
-    end
     
+    plot(X_tmp, 'LineWidth',2); hold on; drawnow;
+
 end
 sorted_mean = sort(tab_mean);
 

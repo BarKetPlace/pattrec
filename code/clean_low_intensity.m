@@ -1,5 +1,5 @@
 function [frIsequence] = clean_low_intensity(frIsequence, nbFrames, Fs)
-% %clean_noise perform a low pass filter (critical frequency 900Hz)
+% %clean_noise put all pitches>1000Hz to zero (critical frequency 900Hz)
 % INPUT
 %     frIsequence :: output of GetMusicFeatures
 %     nbFrames    :: number of columns of frIsequence
