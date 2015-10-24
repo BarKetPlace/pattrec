@@ -103,9 +103,28 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Code verification}
+\subsection{Errors in the forward algorithm}
+To correct the code of the forward algorithm, we first tried to run it before the backward algorithm with the inputs provided page 240. We were able to correct a few systax mistakes afterwards\\
+Then, we read it with the textbook to figure out which lines correspond to which step. By doing this we found out syntaxes mistakes like b(t,j) instead of b(j,t); Useless computation of a variable $c_z$;\\
+The first test that passed consisted in finding the same vector c than the textbook page 240. Then, we tried the forward algorithm with our own database and figure out that the computation of $c_{T+1}$ was set up to work with the example in the textbook.\\
+The next test consisted in using the algorithm on our entire database. No unlikely values  appeared so we can reasonably assume that the forward algorithm is working.\\
+
+\subsection{Consequences}
+\begin{pushright}{Run time errors}
+  These errors can cause a dramatic drop in the performance of our song recognition system. But the biggest problem of computing useless calculations is that it is slightly impossible to find after a couple of weeks and the algorithm will be desperatly slow.
+\end{pushright}
+
+\begin{pushright}{Syntax errors}
+  It is not the biggest problem in an algorithm since the compiler is capable of finding and locating them. Running the code on any data is enough to correct the mistakes. Thus, they doesn't have a long living time.
+\end{pushright}
+
+\begin{pushright}{Logical flows}
+  This can cause calculation issues in recursive algorithms. If a sequence $(u_n)$ such that $ u_{n+1}=f(u_n)$ starts with the wrong value $u_0$ the final result is wrong. In our case the algorithm uses different variables inter correlated for each recursive step so if the variable are not computed in the right order, the final result will be wrong. This kind of errors had been found by reading the code and the textbook in parallel. In some particular cases, the result cas be good and the code can be validated with the error if the tests are not chose carefuly.
+\end{pushright}
 \section{Song Database}
 
-Fir this assignment we have constituted a song database on which try and train our HMM.
+For this assignment we have constituted a song database on which try and train our HMM.
 As our feature extractor is based on the pitch of the note, we have choosen to hum the songs of the database. Also, our feature extractor uses an offset of semitons so we have tried to focus on songs which have a pretty welle defined melody. The songs we have chosen are :
 
 \begin {itemize}
