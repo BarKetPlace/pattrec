@@ -34,7 +34,7 @@ i=2;
 
 if (mc.finiteDuration)
 %finite
-    while( S(1,i-1) ~= size(mc.TransitionProb,2) )
+    while( S(1,i-1) ~= size(mc.TransitionProb,2) && i<T+1)
         A = DiscreteD( mc.TransitionProb(S(1,i-1),:) );
         S(1,i) = A.rand(1);
         i = i + 1;

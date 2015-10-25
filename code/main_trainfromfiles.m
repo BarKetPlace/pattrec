@@ -23,7 +23,7 @@ for ifolder = 1:length(subFolders)
     if ~(strcmp(folder,'.') || strcmp(folder,'..') || strcmp(folder,'antoine') || strcmp(folder, 'tests') )
         data_path = sprintf('%s%s/',files_loc, folder);
         [X, xSize, trained] = trainfromfiles(data_path);
-        save(strcat(data_path,sprintf('%dfiles_%3fwsize.mat',nfiles, round(window_size, 3,'significant'))), 'data_path', 'X', 'xSize', 'trained');
+        save(strcat(data_path,sprintf('trained_hmm.mat')), 'X', 'xSize', 'trained');
     end
 end
 
@@ -31,8 +31,9 @@ end
 clear all
 clc
 
-data_path = '../songs/igetaround/';%do not forget / at the end
+data_path = '../songs/smokeonthewater/';%do not forget / at the end
 [X, xSize, trained] = trainfromfiles( data_path );
+save(strcat(data_path,sprintf('trained_hmm.mat')), 'X', 'xSize', 'trained');
 
 %% see Output distributions result
 figure,

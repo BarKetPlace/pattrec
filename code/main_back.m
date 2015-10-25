@@ -28,16 +28,8 @@ betaHat = backward(mc, pX, c);
 nAttempts = 150;
 x_training = [];
 xSize = [];
-for i = 1:nAttempts
-    States = mc.rand(1000);
-    States = States(States~=0);
-%     X_training = zeros(1,T*nAttempts);
-    T = length(States)-1;
-    xSize = [xSize T];
-    for k =1:length(States)-1
-        x_training(1,T*(i-1)+k) = pDgen( States(k) ).rand(1);
-    end
-end
+[x_training states] = h.rand(100);
+
 
 %% Training, the trained hmm should converge to the hmm h 
 nStates = 2; % Assumption

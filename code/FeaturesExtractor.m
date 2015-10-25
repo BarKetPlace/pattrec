@@ -1,32 +1,15 @@
-% function [ X, xSize, trained ] = trainfromfiles( data_path )
-%   Detailed explanation goes here
+% function [ pitch_log ] = FeaturesExtractor( S, Fs ,window_size)
 %----------------------------------------------------
 %Code Authors:
 % Antoine Honoré
 % Audrey Brouard
 %----------------------------------------------------
 
-function [ X, xSize, trained ] = trainfromfiles( data_path )
-fprintf('Start processing %s\n',data_path);
-        %path = '../songs/igetaround/';
-        nfiles = length(dir(fullfile([data_path '/*.wav'])));
-        
-        tab_mean = [];
-        X=[];
-        xSize = [];
-        fprintf('File 00/00\n');
-        for ifile = 1:nfiles
-            fprintf('\b\b\b\b\b\b%02d/%02d\n',ifile,nfiles);
-            
-            [S Fs] = audioread(strcat(data_path, sprintf('%02d.wav',ifile-1)));
-            
-            scaling_f = Fs; %scaling factor for the temporal plots::
-            %Put Fs and the plots will be in seconds, put 1 to let the number of samples
-            mute  =1;
-            nbSamples = sum(size(S))-1;
+function [ X_tmp ] = FeaturesExtractor( S, Fs ,window_size)
+nbSamples = sum(size(S))-1;
             
             %Extract features
-            window_size = 0;
+            
             if window_size
                 frIsequence = GetMusicFeatures(S, Fs, window_size);
             else
@@ -90,22 +73,5 @@ fprintf('Start processing %s\n',data_path);
             Rounded_p = tmp - ref;
             pitch_log = pitch_log( ~isinf(pitch_log) ) - ref;
             X_tmp = Rounded_p;
-            
-            X = [X pitch_log]; % Concatenate with the previous ones
-            tab_mean = union(tab_mean, X_tmp); % Merge it (we do not want two times the same state)
-            xSize(ifile) = length(pitch_log);
-%             plot(X_tmp, 'LineWidth',2); hold on; drawnow;
-        end
-        nStates = round(length(tab_mean)/2); %reduce the number of states
-        fprintf('Start training with %d states\n', nStates);
-        trained = MakeLeftRightHMM(nStates, GaussD, X, xSize);
-        %Avoid errors with sparse matrix
-        trained.StateGen.InitialProb = full(trained.StateGen.InitialProb);
-        trained.StateGen.TransitionProb = full(trained.StateGen.TransitionProb);
-        %Store the name
-        trained.UserData = data_path;
-        
-%         save(strcat(data_path,sprintf('%dfiles_%3fwsize.mat',nfiles, round(window_size, 3,'significant'))), 'data_path', 'X', 'xSize', 'trained');
-        fprintf('Done processing %s\n', data_path);
 end
 

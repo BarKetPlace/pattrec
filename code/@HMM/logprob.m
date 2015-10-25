@@ -40,7 +40,7 @@ for i=1:numel(hmm)%for all HMM objects
     %continue coding from here, and delete the error message.
     
     [alfaHat, c]=hmm(i).StateGen.forward(hmm(i).OutputDistr.prob(x));
-    logP(i) = log(prod(c));
+    logP(i) = sum(log(c));
 
 %     error('Not yet implemented');
 end;

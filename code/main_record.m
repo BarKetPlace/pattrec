@@ -8,9 +8,9 @@ clear all
 clc
 close all
 
-data_path = '../songs/tests/';% Recording folder
+data_path = '../songs/concerninghobbits/';% Recording folder
 mute = 1; % Listen to the recording or not
-record_time = 8;% How long do you want to record? (in seconds)
+record_time = 10;% How long do you want to record? (in seconds)
 
 nfiles = length(dir(fullfile([data_path '*.wav'])));
 starting_point = nfiles; %The first saved file will have this number
