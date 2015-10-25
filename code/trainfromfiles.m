@@ -1,15 +1,22 @@
-function [ X, xSize, trained ] = trainfromfiles( data_path )
-%UNTITLED Summary of this function goes here
+% function [ X, xSize, trained ] = trainfromfiles( data_path )
 %   Detailed explanation goes here
-
+%----------------------------------------------------
+%Code Authors:
+% Antoine Honoré
+% Audrey Brouard
+%----------------------------------------------------
+function [ X, xSize, trained ] = trainfromfiles( data_path )
 fprintf('Start processing %s\n',data_path);
         %path = '../songs/igetaround/';
-        nfiles = length(dir(fullfile([data_path '*.wav'])));
+        nfiles = length(dir(fullfile([data_path '/*.wav'])));
         
         tab_mean = [];
         X=[];
         xSize = [];
+        fprintf('File 00/00\n');
         for ifile = 1:nfiles
+            fprintf('\b\b\b\b\b\b%02d/%02d\n',ifile,nfiles);
+            
             [S Fs] = audioread(strcat(data_path, sprintf('%02d.wav',ifile-1)));
             
             scaling_f = Fs; %scaling factor for the temporal plots::
@@ -88,8 +95,10 @@ fprintf('Start processing %s\n',data_path);
             xSize(ifile) = length(pitch_log);
 %             plot(X_tmp, 'LineWidth',2); hold on; drawnow;
         end
-        nStates = length(tab_mean);
+        nStates = round(length(tab_mean)/2); %reduce the number of states
+        fprintf('Start training with %d states\n', nStates);
         trained = MakeLeftRightHMM(nStates, GaussD, X, xSize);
-
+        save(strcat(data_path,sprintf('%dfiles_%3fwsize.mat',nfiles, round(window_size, 3,'significant'))), 'data_path', 'X', 'xSize', 'trained');
+        fprintf('Done processing %s\n', data_path);
 end
 

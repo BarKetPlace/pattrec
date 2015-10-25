@@ -19,31 +19,35 @@ h = HMM(mc, pDgen);
 %simple test of forward/backward
 
 % c = [1, .1625, .8266, .0581];
-X = [-.2, 2.6, 1.3];
-[pX, tmp] = pDgen.prob(X);
-
+xTest = [-.2, 2.6, 1.3];
+[pX, tmp] = pDgen.prob(xTest);
 [alfaHat, c]=forward(mc,pX);
-% keyboard
-betaHat = backward(mc, pX, c)
-%%
-nS = 1000; nAttempts = 10;
-States = mc.rand(nS);
-X_training = zeros(1,length(States));
+betaHat = backward(mc, pX, c);
 
-for k =1:length(States)-1
-    X_training(k) = pDgen( States(k) ).rand(1);
+%% Generate training data
+nAttempts = 150;
+x_training = [];
+xSize = [];
+for i = 1:nAttempts
+    States = mc.rand(1000);
+    States = States(States~=0);
+%     X_training = zeros(1,T*nAttempts);
+    T = length(States)-1;
+    xSize = [xSize T];
+    for k =1:length(States)-1
+        x_training(1,T*(i-1)+k) = pDgen( States(k) ).rand(1);
+    end
 end
 
-%% Training
-X=X_training;
+%% Training, the trained hmm should converge to the hmm h 
 nStates = 2; % Assumption
-tmp = MarkovChain;
-mc2 = tmp.initErgodic(nStates, 1); % Initiate markov chain with nStates states
-trainedhmm = HMM(mc2, pDgen);
+trained = MakeLeftRightHMM(nStates, GaussD, x_training, xSize);
+full(trained.StateGen.TransitionProb);
 
-trainedhmm = trainedhmm.init(X, nS/nAttempts*ones(1,nAttempts));
-trainedhmm = trainedhmm.train(X, nS/nAttempts*ones(1,nAttempts));
-full(trainedhmm.StateGen.TransitionProb)
+%% Logprob
+xTest = [-.2, 2.6, 1.3];
+logprob([h, trained], xTest)
+
 %% Generate observation and test viterbi
 % ntest_obs = 10;
 % X_obs = pDgen(1).rand(ntest_obs);
