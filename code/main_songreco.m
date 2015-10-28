@@ -18,13 +18,14 @@ if strcmp(user, 'record')
     [S Fs] = record_(record_time, mute, test_path);
     
 else
-    file_name = 'satisfaction.wav';
+    file_name = 'hobbits.wav';
     [S Fs] = audioread([test_path, file_name]);
     fprintf('%s loaded\n', [test_path file_name]);
 end
 fprintf('Features extraction ...\n');
 pitch_log = FeaturesExtractor(S, Fs, 0);
 fprintf('\b\b\b\bcompleted.\n');
+% figure, plot(pitch_log);
 %% load the different hmm from the available data base
 fprintf('Loading hmms ...\n');
 files_loc = '../songs/';

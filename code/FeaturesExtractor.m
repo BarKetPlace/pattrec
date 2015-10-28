@@ -34,7 +34,7 @@ nbSamples = sum(size(S))-1;
             m_ = zeros(1,nbFrames); %Will receive the result
             flag=0; %The flag = 1 when the x(1,i) ~=0 (the intensity was reasonable, see previous section)
             i=1;
-            j=1; %count the number of pitches
+%             j=1; %count the number of pitches
             
             while i<=nbFrames
                 while (i<=nbFrames && x(1,i)<=900)
@@ -44,12 +44,12 @@ nbSamples = sum(size(S))-1;
                 end
                 if flag
                     stop = i-1;
-                    mean(x(1,start:stop));
+%                     mean(x(1,start:stop));
                     m_(1,start:stop) = median(x(1,start:stop));
-                    pitch(j) = m_(1,start);%save the value of the pitch
-                    [b(j,:) xb(j,:)] = ksdensity(x(1,start:stop)); %b(i,:) contains the probability for the xb(i,:) values
+%                     pitch(j) = m_(1,start);%save the value of the pitch
+%                     [b(j,:) xb(j,:)] = ksdensity(x(1,start:stop)); %b(i,:) contains the probability for the xb(i,:) values
                     %         plot(xb(j,:), b(j,:)); hold on;
-                    j=j+1;
+%                     j=j+1;
                     flag = 0;
                 end
                 i=i+1;
@@ -59,7 +59,6 @@ nbSamples = sum(size(S))-1;
             %Define the states
             lowest = 27.5;
             % highest = 260;
-            
             nb_octave = 10;
             
             nb_semitons = 12*nb_octave;
