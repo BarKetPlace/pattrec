@@ -10,7 +10,11 @@ clc
 
 test_path = '../songs/tests/';
 user_mode = 'load';
-record_name = 'marseillaise_04.wav'; %Usefull if user_mode = 'record'
+record_name = 'marseillaise_04.wav';
+%Usefull if user_mode = 'record',t
+%the file name MUST have the same name as the folder in the database
+%followed by _xx.wav where xx is a double digit integer (00,
+%01,02,03...10,11,...
 
 nfiles = length(dir(fullfile([test_path '*_*.wav'])));
 list_file = dir(fullfile(test_path));
