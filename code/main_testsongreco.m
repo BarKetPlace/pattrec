@@ -19,14 +19,21 @@ subFolders = files(dirFlags);
 file_name = 'concerninghobbits_00.wav';
 user_mode = 'load';
 good=0;
+
+% load the different hmm from the available data base
+fprintf('Loading hmms ...\n');
+files_loc = '../songs/';
+[ hmms ] = load_hmms( files_loc );
+fprintf('\b\b\b\bcompleted (%d hmms are loaded).\n', length(hmms));
 % launch recognition system
-[hmms, pathRes, probRes] = songreco(user_mode, file_name);
+[pathRes, probRes] = songreco(hmms, user_mode, file_name);
+fprintf('Result :: %s\n',pathRes);
 
 % is it the right result
 if strcmp(user_mode,'load')
     res = findstr(file_name(1:end-7), pathRes);
     if res
-        good = good+1;
+        good = good + 1;
     end
 end
 

@@ -24,7 +24,7 @@ function [ S Fs ] = record_( record_time, mute,test_path, name)
         recObj.play;
     end
 %     name = input('name the file (without extension) :: ', 's');
-    audiowrite(strcat(test_path,[name, '.wav']), S, Fs);
+    audiowrite(strcat(test_path,name), S, Fs);
 
 end
 
