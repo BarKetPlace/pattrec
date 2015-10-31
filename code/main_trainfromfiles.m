@@ -4,10 +4,13 @@
 % Audrey Brouard
 %----------------------------------------------------
 
+%Launch specific sections
+
+%% Go for the processing of the entire database
+
 clear all
 close all
 clc
-%% Go for the processing of the entire database
 files_loc = '../songs/';
 
 files = dir(files_loc);
@@ -20,7 +23,7 @@ subFolders.name;
 
 for ifolder = 1:length(subFolders)
     folder = subFolders(ifolder).name;
-    if ~(strcmp(folder,'.') || strcmp(folder,'..') || strcmp(folder,'antoine') || strcmp(folder, 'tests') )
+    if ~(strcmp(folder,'.') || strcmp(folder,'..') || strcmp(folder, 'tests') )
         data_path = sprintf('%s%s/',files_loc, folder);
         [X, xSize, trained] = trainfromfiles(data_path);
         save(strcat(data_path,sprintf('trained_hmm.mat')), 'X', 'xSize', 'trained');
