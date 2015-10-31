@@ -8,9 +8,10 @@ clear all
 close all
 clc
 
-test_path = '../songs/tests/'
-file_name = 'marseillaise_04.wav';
+test_path = '../songs/tests/';
 user_mode = 'load';
+record_name = 'marseillaise_04.wav'; %Usefull if user_mode = 'record'
+
 nfiles = length(dir(fullfile([test_path '*_*.wav'])));
 list_file = dir(fullfile(test_path));
 list_file = {list_file.name};
@@ -22,7 +23,7 @@ fprintf('\b\b\b\bcompleted (%d hmms are loaded).\n', length(hmms));
 %% Record or load all the test data
 if strcmp(user_mode,'record')%% record & test mode
     % launch recognition system
-    [pathRes, probRes] = songreco(hmms, user_mode, file_name);
+    [pathRes, probRes] = songreco(hmms, user_mode, record_name);
     fprintf('Result :: %s\n',pathRes);
     
 elseif strcmp(user_mode,'load') %%load  & test mode
