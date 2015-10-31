@@ -11,7 +11,7 @@ clc
 files_loc = '../songs/';
 
 files = dir(files_loc);
-% Get a logical vector that tells which is a directory.
+% Get a logical vector that tells which one is a directory.
 dirFlags = [files.isdir];
 % Extract only those that are directories.
 subFolders = files(dirFlags);

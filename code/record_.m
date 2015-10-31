@@ -7,23 +7,23 @@
 % Audrey Brouard
 %----------------------------------------------------
 
-function [ S Fs ] = record_( record_time, mute,test_path)
+function [ S Fs ] = record_( record_time, mute,test_path, name)
 
     Fs = 44100;
     
     recObj = audiorecorder(Fs, 16, 1);
     
-    fprintf('Recording in :: 3'); pause(1);
-    fprintf('\b2'); pause(1);
-    fprintf('\b1'); pause(1);
-    fprintf('\b\b\b\b\b\b\b\b\b\b\b\b\b\bStart speaking!\n');
+    fprintf('Recording in :: 3\n'); pause(1);
+    fprintf('\b\b2\n'); pause(1);
+    fprintf('\b\b1\n'); pause(1);
+    fprintf('\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\bStart speaking!\n');
     recordblocking(recObj, record_time);
     S = getaudiodata(recObj);
     Fs = recObj.SampleRate;
     if ~mute
         recObj.play;
     end
-    name = input('name the file (without extension) :: ', 's');
+%     name = input('name the file (without extension) :: ', 's');
     audiowrite(strcat(test_path,[name, '.wav']), S, Fs);
 
 end
