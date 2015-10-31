@@ -20,20 +20,20 @@ for k = 1:length(subFolders)
     flag = 0;    
     folder = subFolders(k).name;
     if ~(strcmp(folder,'.') || strcmp(folder,'..') || strcmp(folder,'antoine') || strcmp(folder, 'tests') )
-        hmm_path = sprintf('%s%s/',files_loc, folder);
-        try 
-        mat_path_tmp = cellstr( ls([hmm_path 'trained_hmm.mat']) );
-        catch
-            warning( sprintf('No .mat file in %s', hmm_path) );
-            flag = 1;
-        end
-        if ~flag
-        mat_path = mat_path_tmp{1,1};
-            load(mat_path);
+        hmm_path = sprintf('%s%s/trained_hmm.mat',files_loc, folder);
+%         try 
+%         mat_path_tmp = cellstr( ls([hmm_path 'trained_hmm.mat']) );
+%         catch
+%             warning( sprintf('No .mat file in %s', hmm_path) );
+%             flag = 1;
+%         end
+%         if ~flag
+%         mat_path = mat_path_tmp{1,1};
+            load(hmm_path);
             hmms(ifolder) = trained;
 %             song_name{ifolder} = data_path;
             ifolder = ifolder + 1;
-        end
+%         end
         
     end
 end
