@@ -40,7 +40,7 @@ fprintf('Database processing (%d songs) :: %d h %d min %d s\n',ifolder-3, h, m, 
 clear all
 clc
 
-data_path = '../songs/concerninghobbits/';%do not forget / at the end
+data_path = '../songs/highwaytohell/';%do not forget / at the end
 [X, xSize, trained] = trainfromfiles( data_path );
 save(strcat(data_path,sprintf('trained_hmm_corr.mat')), 'X', 'xSize', 'trained');
 

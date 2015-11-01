@@ -8,7 +8,7 @@ clear all
 clc
 close all
 
-data_path = '../songs/concerninghobbits/';% Recording folder
+data_path = '../songs/highwaytohell/';% Recording folder
 mute = 1; % Listen to the recording or not
 record_time = 10;% How long do you want to record? (in seconds)
 
