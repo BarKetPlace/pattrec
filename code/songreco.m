@@ -25,11 +25,12 @@ else
 end
 fprintf('Features extraction ...\n');
 pitch_log = FeaturesExtractor(S, Fs, 0);
+% plot(pitch_log, 'LineWidth',2); hold on; drawnow;
 fprintf('\b\b\b\bcompleted.\n');
 % figure, plot(pitch_log);
 
 %% compute logprob for each hmm and figure out wich song was sung
-probRes = hmms.logprob(pitch_log);
+probRes = hmms.logprob(pitch_log); keyboard;
 [m imax] = max(probRes);
 pathRes = hmms(imax).UserData;
 %%

@@ -11,6 +11,7 @@
 clear all
 close all
 clc
+tic
 files_loc = '../songs/';
 
 files = dir(files_loc);
@@ -26,17 +27,22 @@ for ifolder = 1:length(subFolders)
     if ~(strcmp(folder,'.') || strcmp(folder,'..') || strcmp(folder, 'tests') )
         data_path = sprintf('%s%s/',files_loc, folder);
         [X, xSize, trained] = trainfromfiles(data_path);
-        save(strcat(data_path,sprintf('trained_hmm.mat')), 'X', 'xSize', 'trained');
+        save(strcat(data_path, sprintf('trained_hmm_corr.mat')), 'X', 'xSize', 'trained');
     end
 end
+elapsed = toc;
 
+h = floor( elapsed/60/60);
+m = floor( elapsed/60 - h*60 );
+s = round( elapsed - m*60 - h*60*60 );
+fprintf('Database processing (%d songs) :: %d h %d min %d s\n',ifolder-3, h, m, s);
 %% Just train on specified folders
 clear all
 clc
 
-data_path = '../songs/smokeonthewater/';%do not forget / at the end
+data_path = '../songs/concerninghobbits/';%do not forget / at the end
 [X, xSize, trained] = trainfromfiles( data_path );
-save(strcat(data_path,sprintf('trained_hmm.mat')), 'X', 'xSize', 'trained');
+save(strcat(data_path,sprintf('trained_hmm_corr.mat')), 'X', 'xSize', 'trained');
 
 %% see Output distributions result
 figure,

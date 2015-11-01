@@ -11,10 +11,10 @@ clc
 
 num_melody = 3;
 
-nFiles = 6;
+nFiles = 1;
 S_=1;
 Fs_=1;
-path = '../songs/igetaround/';
+path = '../songs/concerninghobbits/';
 filename = int2str(0:nFiles-1);
 %Used later
 tab_mean = [];
@@ -22,7 +22,7 @@ X=[];
 figure,
 %% Load the different files
 for k = 1:nFiles %Repet it as long as there is files
-    [S Fs] = audioread(strcat(path, sprintf('%02d.wav',k)));
+    [S Fs] = audioread(strcat(path, sprintf('%02d.wav',k-1)));
     %     S = S_(i);
     %     Fs = Fs_(i);
     
@@ -47,19 +47,19 @@ for k = 1:nFiles %Repet it as long as there is files
     %   discarded(put to 0)
 
     pitch = frIsequence(1,:);
-     irrelevant = frIsequence(3,:)<=threshold*max_intensity;
-%      pitch(irrelevant) = 0;
-     %Correct the very strong noises
-    pitch(pitch>=900) = 0;
+%      irrelevant = frIsequence(3,:)<=threshold*max_intensity;
+% %      pitch(irrelevant) = 0;
+%      %Correct the very strong noises
+%     pitch(pitch>=900) = 0;
     x = pitch;
     
     m_ = zeros(1,nbFrames); %Will receive the result
     flag=0; %The flag = 1 when the x(1,i) ~=0 (the intensity was reasonable, see previous section)
     i=1;
     j=1; %count the number of pitches
-    
+    corr_ = frIsequence(2,1);
     while i<=nbFrames
-        while (i<=nbFrames && x(1,i)~=0)
+        while ( i<=nbFrames && frIsequence(2,i)/corr_ >= 0.9)
             if (~flag)  start = i; end
             flag = 1;
             i=i+1;
@@ -76,6 +76,7 @@ for k = 1:nFiles %Repet it as long as there is files
         end
         i=i+1;
     end
+%      plot(m_); title(num2str(i));
     x = m_;
     %Define the states
     lowest = 27.5;
@@ -153,7 +154,3 @@ ylabel('Pitch values');
 trained1=trained;
 X_viterbi_1 = X_viterbi;
 save('Melody3', 'trained', 'X_viterbi');
-
-
-
-

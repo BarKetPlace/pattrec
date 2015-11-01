@@ -5,7 +5,8 @@
 % Antoine Honoré
 % Audrey Brouard
 %----------------------------------------------------
-function [ hmms ] = load_hmms( files_loc )
+
+function [ hmms ] = load_hmms( files_loc,hmm_name )
 
 files = dir(files_loc);
 % Get a logical vector that tells which is a directory.
@@ -20,7 +21,7 @@ for k = 1:length(subFolders)
     flag = 0;    
     folder = subFolders(k).name;
     if ~(strcmp(folder,'.') || strcmp(folder,'..') || strcmp(folder,'antoine') || strcmp(folder, 'tests') )
-        hmm_path = sprintf('%s%s/trained_hmm.mat',files_loc, folder);
+        hmm_path = sprintf('%s%s/%s',files_loc, folder, hmm_name);
 %         try 
 %         mat_path_tmp = cellstr( ls([hmm_path 'trained_hmm.mat']) );
 %         catch
@@ -39,4 +40,3 @@ for k = 1:length(subFolders)
 end
 
 end
-

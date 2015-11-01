@@ -9,9 +9,9 @@ close all
 clc
 
 test_path = '../songs/tests/';
-user_mode = 'load';
-record_name = 'marseillaise_04.wav';
-%Usefull if user_mode = 'record',t
+user_mode = 'record';
+record_name = 'delete.wav';
+%Usefull if user_mode = 'record',
 %the file name MUST have the same name as the folder in the database
 %followed by _xx.wav where xx is a double digit integer (00,
 %01,02,03...10,11,...
@@ -22,14 +22,16 @@ list_file = {list_file.name};
 %% load the different hmm from the available data base
 fprintf('Loading hmms ...\n');
 files_loc = '../songs/';
-[ hmms ] = load_hmms( files_loc );
+hmm_name = 'trained_hmm_corr.mat';
+[ hmms ] = load_hmms( files_loc,hmm_name );
 fprintf('\b\b\b\bcompleted (%d hmms are loaded).\n', length(hmms));
 %% Record or load all the test data
+
 if strcmp(user_mode,'record')%% record & test mode
     % launch recognition system
     [pathRes, probRes] = songreco(hmms, user_mode, record_name);
     fprintf('Result :: %s\n',pathRes);
-    
+%     figure,
 elseif strcmp(user_mode,'load') %%load  & test mode
     good = 0;
     for ifiles = 1:nfiles
