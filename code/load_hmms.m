@@ -20,7 +20,7 @@ subFolders.name;
 for k = 1:length(subFolders)
     flag = 0;    
     folder = subFolders(k).name;
-    if ~(strcmp(folder,'.') || strcmp(folder,'..') || strcmp(folder,'antoine') || strcmp(folder, 'tests') )
+    if ~(strcmp('demo',folder)||strcmp(folder,'.') || strcmp(folder,'..') || strcmp(folder,'antoine') || strcmp(folder, 'tests') )
         hmm_path = sprintf('%s%s/%s',files_loc, folder, hmm_name);
 %         try 
 %         mat_path_tmp = cellstr( ls([hmm_path 'trained_hmm.mat']) );

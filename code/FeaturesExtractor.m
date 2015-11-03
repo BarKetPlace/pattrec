@@ -1,11 +1,11 @@
-% function [ pitch_log ] = FeaturesExtractor( S, Fs ,window_size)
+% function [ Rounded_pitches ] = FeaturesExtractor( S, Fs ,window_size)
 %----------------------------------------------------
 %Code Authors:
 % Antoine Honoré
 % Audrey Brouard
 %----------------------------------------------------
 
-function [ Rounded_pitches ] = FeaturesExtractor( S, Fs ,window_size)
+function [ Rounded_pitches pitch_log] = FeaturesExtractor( S, Fs ,window_size)
 % nbSamples = sum(size(S))-1;
             %Extract features
             
@@ -66,12 +66,12 @@ function [ Rounded_pitches ] = FeaturesExtractor( S, Fs ,window_size)
             %define the semitons
             semitons = log(27.5)+ [0:12*nb_octave].*0.0578;
             
-%             pitch_log = log(x);
-            Rounded_pitches = interp1(semitons, semitons, log(x), 'previous');
+             pitch_log = log(x);
+            Rounded_pitches = interp1(semitons, semitons, pitch_log, 'previous');
 %             tmp  = Rounded_pitches(~isnan(Rounded_pitches));
-             ref = mean(Rounded_pitches(Rounded_pitches<=log(900)));
+            ref = mean(Rounded_pitches(Rounded_pitches<=log(900)));
             Rounded_pitches = Rounded_pitches - ref;
 %             pitch_log = pitch_log( ~isinf(pitch_log) ) - ref;
-%             X_tmp = Rounded_p;            
-end
+%             X_tmp = Rounded_p; 
 
+end

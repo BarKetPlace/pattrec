@@ -17,7 +17,9 @@ function [] = display_(S,Fs,scaling_f,mute)
 nbSamples = sum(size(S))-1;
 top = max(S);
 bottom = min(S);
-plot([0:1/scaling_f:nbSamples/scaling_f-1/scaling_f], S); ylabel('Sample value'); title('Signal');
+
+plot([0:1/scaling_f:nbSamples/scaling_f-1/scaling_f], S); hold on;
+ylabel('Sample value'); title('Signal');
 if (scaling_f == 1)  xlabel(['Samples']); xlim([1 nbSamples]); hold on; 
     else  xlabel(['Time']); xlim([0 nbSamples/Fs]);hold on; 
 end

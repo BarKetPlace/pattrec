@@ -8,7 +8,7 @@
 % clear all
 % close all
 % clc
- function [pathRes, probRes]=songreco(hmms, user_mode, file_name)
+ function [pathRes, probRes]=songreco(hmms, user_mode, file_name, en_plot)
 
 %% load or record the test song and extract features
 test_path = '../songs/tests/';
@@ -23,14 +23,26 @@ else
     [S Fs] = audioread([test_path, file_name]);
     fprintf('%s loaded\n', [test_path file_name]);
 end
-fprintf('Features extraction ...\n');
-pitch_log = FeaturesExtractor(S, Fs, 0);
-% plot(pitch_log, 'LineWidth',2); hold on; drawnow;
-fprintf('\b\b\b\bcompleted.\n');
-% figure, plot(pitch_log);
 
+if en_plot
+    figure, display_(S, Fs, Fs, 0);
+    
+end
+
+% keyboard
+fprintf('Features extraction ...\n');
+[Rounded pitch_log] = FeaturesExtractor(S, Fs, 0);
+% 
+% plot(pitch_log, 'LineWidth',2); hold on; drawnow;
+if en_plot 
+    figure, subplot(2,1,1);
+        plot(Rounded, 'LineWidth',2); title([ file_name ' :: Rounded']);
+        subplot(2,1,2);
+        plot(pitch_log,'LineWidth',2); title([ file_name ' :: Actual values']);
+end
+fprintf('\b\b\b\bcompleted.\n');
 %% compute logprob for each hmm and figure out wich song was sung
-probRes = hmms.logprob(pitch_log); %keyboard;
+probRes = hmms.logprob(Rounded); %keyboard;
 [m imax] = max(probRes);
 pathRes = hmms(imax).UserData;
 %%

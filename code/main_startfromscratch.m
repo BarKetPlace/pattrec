@@ -11,7 +11,7 @@ clc
 
 num_melody = 3;
 
-nFiles = 1;
+nFiles = 6;
 S_=1;
 Fs_=1;
 path = '../songs/concerninghobbits/';
@@ -94,7 +94,7 @@ for k = 1:nFiles %Repet it as long as there is files
     ref = mean(tmp);
     Rounded_p = tmp - ref;
     pitch_log = pitch_log( ~isinf(pitch_log) ) - ref;
-    X_tmp = Rounded_p;
+    X_tmp = pitch_log;
     
     if k<nFiles
         X = [X pitch_log]; % Concatenate with the previous ones
@@ -110,7 +110,7 @@ for k = 1:nFiles %Repet it as long as there is files
 end
 sorted_mean = sort(tab_mean);
 
-tab_mean = sorted_mean(1:5:end);
+tab_mean = sorted_mean(1:2:end);
 %% Define the states
 % xx=[];
 % scale_factor = max(xSize); %scale the probability density
@@ -138,7 +138,7 @@ end
 %% Probability p(x | lambda)
 trained.logprob(X_tmp)
 %% Now we want the most probable sequence of states for a given vector of features
-[optS,logP] = trained.viterbi(X_tmp);
+[optS, logP] = trained.viterbi(X_tmp);
 %% Try the best sequence and see if the pitches look like the song
 for i = 1:length(optS)
     res(i) = trained.OutputDistr(optS(i)).rand(1); %Draw a sample from the b_j(x)
@@ -148,7 +148,7 @@ end
 figure, plot(res);
 title(sprintf('Viterbi algorithm gave us a sequence of states i = (i1..iT)\nThis figure represents the vector of (x_t) where x_t follows N_i1'));
 ylabel('Pitch values');
-
+figure, plot(X_tmp);
 %% Store HMM for decision function
 
 trained1=trained;

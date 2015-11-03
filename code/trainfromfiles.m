@@ -11,7 +11,7 @@ fprintf('Start processing %s\n',data_path);
         %path = '../songs/igetaround/';
         nfiles = length(dir(fullfile([data_path '/*.wav'])));
         
-        tab_mean = [];
+        tab_mean=[];
         X=[];
         xSize = [];
         nStates=0;
@@ -55,10 +55,10 @@ fprintf('Start processing %s\n',data_path);
             nStates = max(nStates, length(union(X_tmp,[])));
 %             tab_mean = union(tab_mean, X_tmp); % Merge it (we do not want two times the same state)
             xSize(ifile) = length(X_tmp);
-%             plot(X_tmp, 'LineWidth',2); hold on; drawnow;
+            plot(X_tmp, 'LineWidth',2); hold on; drawnow;
         end
         
-%         nStates = round(length(tab_mean)); %reduce the number of states
+%         nStates = round(1.5*nStates);
         fprintf('Start training with %d states\n', nStates);
         trained = MakeLeftRightHMM(nStates, GaussD, X, xSize);
         %Avoid errors with sparse matrix
